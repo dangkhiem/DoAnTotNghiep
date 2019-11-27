@@ -1,0 +1,68 @@
+.banner{
+    position: absolute;
+    z-index: 0;
+    width: 100%;
+    /*height: 150px !important;*/
+    overflow: hidden; // tránh lỗi hình quá lớn đè lên nội dung các phần khác
+/*padding-left: 15px;*/
+    box-sizing: border-box; // cố định kích thước của slide
+}
+/*.search-bar{*/
+/*    position: absolute;*/
+/*    margin-top: 20px;*/
+/*    z-index: 1;*/
+/*}*/
+
+.red {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    /*left: auto;*/
+    /*right: auto;*/
+    color: white;
+    line-height: 100px;
+    text-align: center;
+}
+
+.red {
+    z-index: 1;
+    /*top: 300px;*/
+    width: 100%;
+    /*left: auto;*/
+    /*background: red;*/
+}
+
+.z-index-20{
+    z-index: 20;
+    top: 40%;
+    left: 25%;
+
+}
+
+.clearpostition{
+    position: initial;
+}
+
+.imgRS{
+
+    width: 100%;
+    height: 300px;
+    /*background-color: #3e3e3e;*/
+    /*background-image: none;*/
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+.imgRelative{
+    position: relative;
+}
+.textRelative{
+    position: absolute;
+    bottom: 20px;
+    left: 10px;
+    color: whitesmoke;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+

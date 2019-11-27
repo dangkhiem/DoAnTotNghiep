@@ -1,0 +1,8 @@
+.absolute{
+    position: relative;
+}
+.absolute card{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
