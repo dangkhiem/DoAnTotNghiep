@@ -1,131 +1,161 @@
 @extends('layouts.app')
-
+{{--<link rel="stylesheet" href="{{asset('css/subPitch.css')}}">--}}
 <link rel="stylesheet" href="{{asset('css/subPitch.css')}}">
 @section('content')
-    <div class="container-fluid p-0 m-0 ">
-        @foreach($Pitch as $data)
-{{--            banner--}}
-            <div class="row resizeImg p-0 m-0">
-                <div class="resizeImg" style="background-image: url({{asset($data->img)}});">
-                </div>
-            </div>
-
-{{--        Pitch info--}}
-            <div>
-
-            </div>
-
-            <div class="container mt-3 mb-5">
-                <div class="row">
-                    @if ($ListSubPitch->min('type') == 5)
-                        <div class="col-6">
-                            <div class="card card-body">
-                                <h5 class="p-3 text-white text-center text-uppercase" style="background-color: #fb8c00">
-                                    SÂN 5</h5>
-                                <h5 class="text-center">{{$ListSubPitch->min('start_time')}}
-                                    - {{$ListSubPitch->max('end_time')}}</h5>
-                                {{--                            <h5>Bảng giá thuê sân theo giờ</h5>--}}
-                                <div class="row" p-0 m-0>
-                                    <div class="col-6 text-center">Thời gian</div>
-                                    <div class="col-6 text-center">Đơn giá/h</div>
-                                </div>
-                                @foreach($ListSubPitch as $money)
-                                    @if ($money->type == 5)
-                                        <hr>
-                                        <div class="text-center text-danger text row">
-                                            <div class="col-6 text-center"><strong>{{$money->start_time}}
-                                                    - {{$money->end_time}}</strong></div>
-                                            <div class="col-6 text-center"><strong>  {{$money->cost}}(nghìn
-                                                    đồng) </strong></div>
-
-                                        </div>
-                                    @endif
-                                @endforeach
-                            </div>
-                        </div>
-                    @endif
-
-                    @if ($ListSubPitch->max('type') == 7)
-                        <div class="col-6">
-                            <div class="card card-body">
-                                <h5 class="p-3 text-white text-center text-uppercase" style="background-color: #fb8c00">
-                                    SÂN 7</h5>
-                                <h5 class="text-center">{{$ListSubPitch->min('start_time')}}
-                                    - {{$ListSubPitch->max('end_time')}}</h5>
-                                <div class="row" p-0 m-0>
-                                    <div class="col-6 text-center">Thời gian</div>
-                                    <div class="col-6 text-center">Đơn giá/h</div>
-                                </div>
-                                @foreach($ListSubPitch as $money)
-                                    @if ($money->type == 7)
-                                        <hr>
-                                        <div class="text-center text-danger text row">
-                                            <div class="col-6 text-center"><strong>{{$money->start_time}}
-                                                    - {{$money->end_time}}</strong></div>
-                                            <div class="col-6 text-center"><strong>  {{$money->cost}}(nghìn
-                                                    đồng) </strong></div>
-                                        </div>
-                                    @endif
-                                @endforeach
-                                <div></div>
-                            </div>
-                        </div>
-                    @endif
-                </div>
-            </div>
-
-        @endforeach
-    </div>
-
-    {{--    FOOTER--}}
-    <div class="py-5  text-muted clearpostition">
-        <div class="container ">
-            <div class="row">
-                <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
-                    <h6 class="font-weight-bold text-uppercase text-dark mb-3">Về Sporta</h6>
-                    <ul class="list-unstyled">
-                        <li><a href="/pages/about-us" class="text-muted">Giới thiệu Sporta</a></li>
-                        <li><a href="/bai-viet/" class="text-muted">Blog</a></li>
-                        <li><a href="/pages/dieu-khoan-su-dung" class="text-muted">Điều khoản sử dụng</a></li>
-                        <li><a href="/pages/chinh-sach-bao-mat" class="text-muted">Chính sách bảo mật</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-3 mb-5 mb-lg-0">
-                    <div class="font-weight-bold text-uppercase text-dark mb-3">Thông tin liên hệ</div>
-                    <ul class="list-unstyled">
-                        <li class="text-muted"><a href="https://www.facebook.com/sportavn/" target="_blank"
-                                                  title="facebook" class="text-muted text-hover-primary"><i
-                                        class="fab fa-facebook"></i> /sportavn</a></li>
-                        <li class="text-muted"><a class="text-muted text-hover-primary" href="mailto:hello@sporta.vn"><i
-                                        class="fas fa-envelope"></i> hello@sporta.vn</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
-                    <h6 class="text-uppercase text-dark mb-3 font-weight-bold">Thanh toán</h6>
-                    <ul class="list-unstyled">
-                        <li class="text-muted"><a class="text-muted text-hover-primary"><img
-                                        style="height: 25px; margin-bottom: 10px"
-                                        src="https://www.sporta.vn/assets/momo-f2c88c55af645265139d91c8ec6e31182b68283d335ef35dff10bc90da8ddb3b.png"
-                                        alt="Momo"> Momo</a></li>
-                        <li class="text-muted"><a class="text-muted text-hover-primary"><i
-                                        class="fas fa-money-check-alt" style="font-size: 20px;"></i> Tiền mặt</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
-                    <h6 class="text-uppercase text-dark mb-3 font-weight-bold">Ứng dụng di động</h6>
-                    <ul class="list-unstyled">
-                        <li><a href="https://apps.apple.com/vn/app/sporta/id1469001632"><img style="width: 150px"
-                                                                                             src="https://www.sporta.vn/assets/icon-appstore-0ac658e90248e413db2bdc584e50b25b06a8229f6a74efb816b93194d0491829.svg"
-                                                                                             alt="Icon appstore"></a>
+    <div class="container-fluid d-flex">
+        <div id="menu" class="col-2 mr-auto flex-fill p-0 ">
+            <div id="menu_admin" class="">
+                <div id="sidebar" class="">
+                    <h2>DashBoard</h2>
+                    <hr class="p-o m-0">
+                    <ul id="menu_admin_users" class="nav nav-pills nav-fill">
+                        <li class="nav-item m-0 p-0">
+                            <a class="nav-link text-left" href="{{route('getAllUser')}}">
+                                <i class="fa fa-users"></i> User Management</a>
                         </li>
-                        <li><a href="https://play.google.com/store/apps/details?id=vn.sporta.sportaandroid"><img
-                                        style="width: 150px"
-                                        src="https://www.sporta.vn/assets/icon-googleplaystore-87014b724e646f2c8dce71506e67424975dd3f81a59b3e8f356ce501a0c6e458.svg"
-                                        alt="Icon googleplaystore"></a></li>
+                    </ul>
+                    <ul id="menu_admin_catalogs" class="nav nav-pills nav-fill">
+                        <li class="nav-item m-0 p-0">
+                            <a class="nav-link text-left" href="{{route('pitch')}}">
+                                <i class="fa fa-list"></i> Pitch Management</a>
+                        </li>
+                    </ul>
+                    <ul id="menu_admin_products" class="nav nav-pills nav-fill">
+                        <li class="nav-item m-0 p-0">
+                            <a class="nav-link text-left" href="#">
+                                <i class="fa fa-product-hunt"></i> History Management</a>
+                        </li>
                     </ul>
                 </div>
             </div>
         </div>
-    </div>
 
+        <div id="content" class="col-10 flex-fill m-0 p-0 ">
+            <div class="pt-2">
+                <div id="pitchInfo" class="card card-body shadow">
+                    @foreach($Info as $data)
+                        {{--                        <img class="d-block w-100" src="{{asset($data->img)}}" alt="" style="height: 200px; ">--}}
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="resizeImg text-white"
+                                     style="background-image: url({{asset($data->img)}}); height: 200px;">
+                                </div>
+                            </div>
+                            <div class="col-8 row align-items-center mx-auto">
+                                <div>
+                                    <h1 class="text-center">{{$data->pitch_name}}</h1>
+                                    <div class="row">
+                                        <div class="col-5">
+                                            <label for="" class="font-weight-bold">Chủ sân: {{$data->name}} </label><br>
+                                            {{--                                                                        <label for="" class="font-weight-bold"> Email: {{$data->email}} <br> </label>--}}
+                                            <label for="" class="font-weight-bold"> Số điện
+                                                thoại: {{$data->phone}} </label>
+                                        </div>
+                                        <div class="col-7">
+                                            <label for="" class="font-weight-bold"> Khu vực: {{$data->area}}<br></label>
+                                            <label for="" class="font-weight-bold"> Địa chỉ: {{$data->address}}</label>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    @endforeach
+                </div>
+                <div class="row col-0 m-0 pt-5  pb-3">
+                    <div class="card card-body col-6 shadow">
+                        <h1 class="text-uppercase text-center text-warning">Sân 5 người</h1>
+                        <div class="row">
+                            <div class="col-4">
+                                <h3>Danh sách Sân</h3>
+                                @foreach($ListSubPitch as $data)
+                                    @if ($data->type == 5)
+                                        <form action="#">
+                                            @csrf
+                                            <div class="input-group">
+                                                <input class="form-control width100" placeholder="Tên Sân"
+                                                       name="SubPitchName" value="{{$data->name}}" disabled>
+                                                <span class="input-group-btn">
+                                    </span>
+                                            </div>
+                                        </form>
+                                    @endif
+                                @endforeach
+                            </div>
+                            <div class="col-8">
+                                <h3>Khung Giá</h3>
+                                @foreach ($ListPrice as $price)
+                                    @if ($price->type ==5)
+                                        <form method="post">
+                                            @csrf
+                                            <div class="input-group">
+                                                <input type="hidden" value="{{$price->pitch_id}}" name="pitch_id">
+                                                <input type="hidden" value="5" name="type">
+                                                <input class="form-control width100" name=""
+                                                       value="{{$price->start_time}}">
+                                                <input class="form-control width100" name=""
+                                                       value="{{$price->end_time}}">
+                                                <input class="form-control width100" name="" value="{{$price->cost}}">
+                                                <span class="input-group-btn">
+                                        </span>
+                                            </div>
+                                        </form>
+                                    @endif
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+
+                    {{--                san 7--}}
+
+
+                    <div class="card card-body col-6 shadow">
+                        <h1 class="text-uppercase text-center text-warning">Sân 7 người</h1>
+                        <div class="row">
+                            <div class="col-4">
+                                <h3>Danh sách Sân</h3>
+                                @foreach($ListSubPitch as $data)
+                                    @if ($data->type == 7)
+                                        <form action="#">
+                                            @csrf
+                                            <div class="input-group">
+                                                <input class="form-control width100" placeholder="Tên Sân"
+                                                       name="SubPitchName" value="{{$data->name}}" disabled>
+                                                <span class="input-group-btn">
+                                    </span>
+                                            </div>
+                                        </form>
+                                    @endif
+                                @endforeach
+                            </div>
+                            <div class="col-8">
+                                <h3>Khung Giá</h3>
+                                @foreach ($ListPrice as $price)
+                                    @if ($price->type == 7)
+                                        <form method="post">
+                                            @csrf
+                                            <div class="input-group">
+                                                <input type="hidden" value="{{$price->pitch_id}}" name="pitch_id">
+                                                <input type="hidden" value="7" name="type">
+                                                <input class="form-control width100" name=""
+                                                       value="{{$price->start_time}}">
+                                                <input class="form-control width100" name=""
+                                                       value="{{$price->end_time}}">
+                                                <input class="form-control width100" name="" value="{{$price->cost}}">
+                                                <span class="input-group-btn">
+                                        </span>
+                                            </div>
+                                        </form>
+                                    @endif
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

@@ -1,10 +1,10 @@
 @extends('layouts.app')
-<link rel="stylesheet" href="css/signUpStyle.css">
+{{--<link rel="stylesheet" href="{{asset('css/signUpStyle.css')}}">--}}
 
 @section('content')
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-        Launch demo modal
+        Add User
     </button>
 
     <!-- Modal -->
@@ -90,43 +90,43 @@
 
 
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#formAddUser").validate({
-                rules: {
-                    name: "required",
-                    // email: {
-                    //     required: true,
-                    //     email: true
-                    // },
-                    // password: {
-                    //     required: true,
-                    //     minlength: 6,
-                    //     maxlength: 15
-                    // },
-                    // phone:{
-                    //     required:true,
-                    //     minlength:8,
-                    //     maxlength:12,
-                    //     phone: true
-                    // }
-                },
-                messages: {
-                    name: "Vui lòng nhập tên!",
-                    // email: {
-                    //     required: "Vui lòng nhập vào email",
-                    //     email: "Nhập đúng định dạng email đê :D"
-                    // },
-                    // password: {
-                    //     required: "Vui lòng nhập mật khẩu!",
-                    //     minlength: "Độ dài tối thiểu 6 kí tự",
-                    //     maxlength: "Độ tài tối đa 15 kí tự"
-                    // },
-                    // checkbox: "Xác nhận Admin đẹp zai"
-                }
-            });
-        });
-    </script>
+{{--    <script type="text/javascript">--}}
+{{--        $(document).ready(function () {--}}
+{{--            $("#formAddUser").validate({--}}
+{{--                rules: {--}}
+{{--                    name: "required",--}}
+{{--                    // email: {--}}
+{{--                    //     required: true,--}}
+{{--                    //     email: true--}}
+{{--                    // },--}}
+{{--                    // password: {--}}
+{{--                    //     required: true,--}}
+{{--                    //     minlength: 6,--}}
+{{--                    //     maxlength: 15--}}
+{{--                    // },--}}
+{{--                    // phone:{--}}
+{{--                    //     required:true,--}}
+{{--                    //     minlength:8,--}}
+{{--                    //     maxlength:12,--}}
+{{--                    //     phone: true--}}
+{{--                    // }--}}
+{{--                },--}}
+{{--                messages: {--}}
+{{--                    name: "Vui lòng nhập tên!",--}}
+{{--                    // email: {--}}
+{{--                    //     required: "Vui lòng nhập vào email",--}}
+{{--                    //     email: "Nhập đúng định dạng email đê :D"--}}
+{{--                    // },--}}
+{{--                    // password: {--}}
+{{--                    //     required: "Vui lòng nhập mật khẩu!",--}}
+{{--                    //     minlength: "Độ dài tối thiểu 6 kí tự",--}}
+{{--                    //     maxlength: "Độ tài tối đa 15 kí tự"--}}
+{{--                    // },--}}
+{{--                    // checkbox: "Xác nhận Admin đẹp zai"--}}
+{{--                }--}}
+{{--            });--}}
+{{--        });--}}
+{{--    </script>--}}
 
 
     <script>
@@ -168,13 +168,13 @@
                         });
                     },
                     error: function (XMLHttpRequest) {
-                        alert('123')
+                        // alert('123')
                         // $("#btn_getStarted").attr("disabled", "disabled");
                         errors = XMLHttpRequest.responseJSON.errors
                         // alert(errors)
-                        // $('#add-error-name').html(errors.name);
-                        // $('#add-error-email').html(errors.email);
-                        // $('#add-error-password').html(errors.password);
+                        $('#add-error-name').html(errors.name);
+                        $('#add-error-email').html(errors.email);
+                        $('#add-error-password').html(errors.password);
 
                     }
                 })

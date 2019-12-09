@@ -15,12 +15,10 @@ class CreateSubpitchesTable extends Migration
     {
         Schema::create('subpitches', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('user_id');
             $table->integer('pitch_id');
-            $table->integer('shop_id');
             $table->integer('type');
-            $table->time('start_time');
-            $table->time('end_time');
-            $table->bigInteger('cost');
+            $table->string('name');
         });
     }
 

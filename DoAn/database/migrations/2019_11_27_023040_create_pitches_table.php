@@ -16,9 +16,12 @@ class CreatePitchesTable extends Migration
         Schema::create('pitches', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('user_id');
+            $table->string('name');
             $table->string('img');
             $table->string('address');
             $table->string('area');
+            $table->time('open_time');
+            $table->time('close_time');
         });
     }
 

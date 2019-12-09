@@ -32,46 +32,45 @@
     <div>
         <div class="mx-auto red ">
             <div class="container mx-auto ">
-                <div class="row">
+                <div class="row bg-transparent">
                     <div class="col-xl-10">
                         <div class="text-center text-lg-left d-none d-md-block">
                             <p class="display-4 letter-spacing-1 mb-2 text-shadow" style="color: #fb8c00">Sporta</p>
                         </div>
                         <div class="text-center text-lg-left d-md-block">
-                            <h3 class="display-5  text-shadow mb-3">
+                            <h3 class="display-5 text-shadow mb-3">
                                 ĐẶT SÂN NHANH CHÓNG - TÌM ĐỐI DỄ DÀNG
                             </h3>
                         </div>
                         <div class="row m-0 p-0">
-                            <form action="#" class="w-100 ">
+                            @csrf
+                            <form action="{{route('Search')}}" class="w-100" method="post">
+                                @csrf
                                 <div class="row d-flex  p-0 m-0">
                                     <div class="col-6 align-items-center form-group p-0 m-0">
-                                        <input type="text" name="search_string" id="search-input"
+                                        <input type="text" name="name" id="search-input"
                                                placeholder="Tên Quận hoặc Tên sân bóng"
                                                class="form-control border-0 shadow-0 ui-autocomplete-input"
                                                autocomplete="off"><!-- params[:search_string] -->
                                     </div>
                                     <div class="col-2  p-0 m-0 input-group">
-                                        <select class="custom-select" id="inputDate">
-                                            <option value="1"
-                                                    selected>{{ \Carbon\Carbon::now()->toDateString()}} </option>
-                                            <option value="2">{{ \Carbon\Carbon::now()->add(1,'day')->toDateString() }} </option>
-                                            <option value="3">{{ \Carbon\Carbon::now()->add(2,'day')->toDateString() }} </option>
-                                            <option value="4">{{ \Carbon\Carbon::now()->add(3,'day')->toDateString() }} </option>
-                                            <option value="5">{{ \Carbon\Carbon::now()->add(4,'day')->toDateString() }} </option>
-                                            <option value="6">{{ \Carbon\Carbon::now()->add(5,'day')->toDateString() }} </option>
-                                            <option value="7">{{ \Carbon\Carbon::now()->add(6,'day')->toDateString() }} </option>
+                                        <select class="custom-select" id="inputDate" name="date">
+                                            <option value="">Select date</option>
+                                            @for ($i =0; $i<=6;  $i++)
+                                                <option value=" {{\Carbon\Carbon::now()->add($i,'day')->toDateString()}}"> {{\Carbon\Carbon::now()->add($i,'day')->toDateString()}}</option>
+                                            @endfor
                                         </select>
                                     </div>
                                     <div class="col-2  p-0 m-0 input-group">
-                                        <select class="custom-select" id="inputTime">
-                                            <option value="1"> {{\Carbon\Carbon::yesterday()->addHour(5)->toTimeString()}}   </option>
-                                            <option value="1"> {{\Carbon\Carbon::yesterday()->addHour(6)->toTimeString()}}   </option>
-                                            <option value="1"> {{\Carbon\Carbon::yesterday()->addHour(7)->toTimeString()}}   </option>
-                                            <option value="1"> {{\Carbon\Carbon::yesterday()->addHour(8)->toTimeString()}}   </option>
-                                            <option value="1"> {{\Carbon\Carbon::yesterday()->addHour(9)->toTimeString()}}   </option>
-                                            <option value="1"> {{\Carbon\Carbon::yesterday()->addHour(10)->toTimeString()}}   </option>
-                                            <option value="1"> {{\Carbon\Carbon::yesterday()->addHour(11)->toTimeString()}}   </option>
+                                        <select class="custom-select" id="inputTime" name="time">
+                                            <option value="">Select time</option>
+                                            <?php $start = "05:00"; $end = "23:30";
+                                            $beginHour = \Illuminate\Support\Carbon::parse($start);
+                                            $endHour = \Illuminate\Support\Carbon::parse($end);
+                                                ?>
+                                            @for ($i = $beginHour; $i<=$endHour;  $i->addMinutes(30))
+                                                <option value=" {{$i->toTimeString()}}"> {{$i->toTimeString()}}   </option>
+                                            @endfor
                                         </select>
                                     </div>
                                     <div class="col-2  p-0 m-0">

@@ -2,6 +2,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="css/adminIndex.css">
 <link rel="stylesheet" href="css/signUpStyle.css">
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 @section('content')
     <div class="container-fluid d-flex">
         <div id="menu" class="col-2 mr-auto flex-fill p-0 ">
@@ -40,7 +41,7 @@
                         </div>
                         <div class=" p-0 m-0 ml-auto">
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                Launch demo modal
+                                Add User
                             </button>
                             {{--                            <button onclick="getAddModal()" class="btn btn-primary"><i class="fa fa-plus"--}}
                             {{--                                                                                       aria-hidden="true"></i><span>Add New User</span>--}}
@@ -50,12 +51,14 @@
                 </div>
                 <table class="table table-striped  table-hover">
                     <thead>
-                    <tr>
+                    <tr class="text-uppercase">
                         <th>Id</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Phone</th>
                         <th>Role</th>
+                        <th>Action</th>
+
                     </tr>
                     </thead>
                     <tbody>
@@ -109,34 +112,9 @@
             $("#formAddUser").validate({
                 rules: {
                     name: "required",
-                    // email: {
-                    //     required: true,
-                    //     email: true
-                    // },
-                    // password: {
-                    //     required: true,
-                    //     minlength: 6,
-                    //     maxlength: 15
-                    // },
-                    // phone:{
-                    //     required:true,
-                    //     minlength:8,
-                    //     maxlength:12,
-                    //     phone: true
-                    // }
                 },
                 messages: {
-                    name: "Vui lòng nhập tên!",
-                    // email: {
-                    //     required: "Vui lòng nhập vào email",
-                    //     email: "Nhập đúng định dạng email đê :D"
-                    // },
-                    // password: {
-                    //     required: "Vui lòng nhập mật khẩu!",
-                    //     minlength: "Độ dài tối thiểu 6 kí tự",
-                    //     maxlength: "Độ tài tối đa 15 kí tự"
-                    // },
-                    // checkbox: "Xác nhận Admin đẹp zai"
+                    name: "Oops, please type your name"
                 }
             });
         });
@@ -164,9 +142,8 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
                 });
-                var deita = 'khiem'
                 $.ajax({
-                    url: 'admin/users/add',
+                    url: "{{route('StoreUser')}}",
                     type: 'post',
                     data: addForm,
                     // dataType: "json",
@@ -182,13 +159,14 @@
                         });
                     },
                     error: function (XMLHttpRequest) {
-                        alert('123')
+                        // alert('123')
                         // $("#btn_getStarted").attr("disabled", "disabled");
                         errors = XMLHttpRequest.responseJSON.errors
-                        // alert(errors)
-                        // $('#add-error-name').html(errors.name);
-                        // $('#add-error-email').html(errors.email);
-                        // $('#add-error-password').html(errors.password);
+                        console.log(errors)
+                        $('#add-error-name').html(errors.name);
+                        $('#add-error-email').html(errors.email);
+                        $('#add-error-password').html(errors.password);
+                        $('#add-error-phone').html(errors.phone);
 
                     }
                 })

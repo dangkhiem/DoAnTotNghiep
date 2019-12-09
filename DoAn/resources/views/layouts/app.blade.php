@@ -9,7 +9,15 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
     <!-- Scripts -->
+{{--    https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/jquery.validate.min.js--}}
+    <script
+            src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
+            crossorigin="anonymous"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
@@ -18,17 +26,9 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-{{--    <script src="http://code.jquery.com/jquery-3.4.1.min.js"--}}
-{{--            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>--}}
-{{--    <script type="text/javascript"--}}
-{{--            src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/jquery.validate.js"></script>--}}
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-{{--    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>--}}
-
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
+
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
@@ -71,6 +71,19 @@
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
+                                    @if (Auth::user()->role_id == 1)
+                                        <a class="dropdown-item" href="{{ route('adminDashboard') }}">
+                                            {{ __('Admin DashBoard') }}
+                                        </a>
+                                    @elseif(Auth::user()->role_id == 2)
+                                        <a class="dropdown-item" href="{{ route('ownerDashboard') }}">
+                                            {{ __('Owner DashBoard') }}
+                                        </a>
+                                        @elseif (Auth::user()->role_id == 3)
+                                        <a class="dropdown-item" href="{{ route('userDashboard') }}">
+                                            {{ __('User DashBoard') }}
+                                        </a>
+                                        @endif
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf

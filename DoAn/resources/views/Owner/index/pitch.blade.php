@@ -3,57 +3,33 @@
 @section('content')
     <div class="container-fluid d-flex">
         <div id="menu" class="col-2 mr-auto flex-fill p-0 ">
-            <div id="" class="">
-                <div id="sidebar" class="">
-                    <h2>DashBoard</h2>
-                    <hr class="p-o m-0">
-                    <ul id="" class="nav nav-pills nav-fill">
-                        <li class="nav-item m-0 p-0">
-                            <a class="nav-link text-left" href="">
-                                <i class="fa fa-users"></i> Personal information</a>
-                        </li>
-                    </ul>
-                    <ul id="" class="nav nav-pills nav-fill">
-                        <li class="nav-item m-0 p-0">
-                            <a class="nav-link text-left" href="{{url('owner/pitch')}}">
-                                <i class="fa fa-list"></i> Pitch Management</a>
-                        </li>
-                    </ul>
-                    <ul id="" class="nav nav-pills nav-fill">
-                        <li class="nav-item m-0 p-0">
-                            <a class="nav-link text-left" href="#">
-                                <i class="fa fa-product-hunt"></i> Order Management</a>
-                        </li>
-                    </ul>
-
-                    <ul id="" class="nav nav-pills nav-fill">
-                        <li class="nav-item m-0 p-0">
-                            <a class="nav-link text-left" href="#">
-                                <i class="fa fa-product-hunt"></i> History Management</a>
-                        </li>
-                    </ul>
-
-                </div>
-            </div>
+            @include('Owner.component.OwnerSidebar')
         </div>
 
         <div id="content" class=" col-10 flex-fill bg-white m-0 p-0">
             <div class="container">
-                <div class="row m-0 p-0 col-1 float-right pb-3">
-                    <button class="btn btn-group bg-primary btn-block text-white text-center">Add new</button>
+                <div class="row m-0 p-0 col-1 pb-3">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNewPitch">
+                        Add new
+                    </button>
+{{--                    <button class="btn btn-group bg-primary btn-block text-white text-center">Add new</button>--}}
                 </div>
+
+
+                <!-- Modal -->
+
             </div>
             <div class=" container">
                 <div class="justify-content-center">
                     @foreach ($pitch as $data)
-                        <div class="card card-body w-100 mb-3">
-                            <div class="row p-0 m-0" style="height: 150px;">
+                        <div class="card card-body w-100 mb-3 shadow">
+                            <div class="row p-0 m-0" >
 
                                 <div class="col-4">
                                     <img class="img-fluid h-100" src="{{asset($data->img)}}" alt="">
                                 </div>
                                 <div class="col-8 pt-3 pb-3 align-self-center">
-                                    <h3 class="text-uppercase text-info p-1">Sân bóng đá Xuyên Việt</h3>
+                                    <h3 class="text-uppercase text-info p-1">{{$data->name}}</h3>
                                     <h5><i class="fa fa-map-marker p-1" aria-hidden="true">{{$data->address}}</i></h5>
                                     <h5><i class="fa p-1">Area: {{$data->area}}</i></h5>
                                     <a href="{{ \Illuminate\Support\Facades\URL::to('owner/pitch/'.$data->id) }}">Chi tiết</a>
@@ -63,21 +39,17 @@
 
                     @endforeach
                 </div>
-
-
-
 {{--                <div class="pagination-list-user justify-content-center d-flex">--}}
 {{--                    <div class="m-auto align-content-center align-items-center">{{$getListPitch->links()}}</div>--}}
 {{--                </div>--}}
             </div>
         </div>
 
-{{--        <div id="content" class="col-10 flex-fill   m-0 p-0 border-top">--}}
 
-
-
-{{--        </div>--}}
     </div>
+@component('Owner.component.addPitch')
+    @endcomponent
+
     <script type="text/javascript">
         $(document).ready(function () {
             $("#formAddUser").validate({
@@ -136,7 +108,6 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
                 });
-                var deita = 'khiem'
                 $.ajax({
                     url: 'admin/users/add',
                     type: 'post',
@@ -167,4 +138,6 @@
             })
         });
     </script>
+
+
 @endsection

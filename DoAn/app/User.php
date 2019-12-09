@@ -32,7 +32,7 @@ class User extends Authenticatable
 
     public function pitchs()
     {
-        return $this->hasOne(Pitch::class,'user_id','id');
+        return $this->hasMany(Pitch::class);
     }
 //'remember_token',
 
@@ -47,3 +47,6 @@ class User extends Authenticatable
 
 
 }
+
+
+

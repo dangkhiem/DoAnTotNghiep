@@ -7,7 +7,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-                <div class="card card-signup my-5">
+                <div class="card card-signup my-2">
                     <div class="card-body">
                         <h5 class="card-title text-center">Sign Up</h5>
                         <form class="form-signup" method="POST" action="{{ route('register') }}">
@@ -73,10 +73,13 @@
                             <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Register
                             </button>
                             <hr>
-                            <div class="pb-2 mx-auto text-center text-dark"><span><strong>You already have an account!</strong></span></div>
-                            <div class="form-label-group">
-                                <a class="btn btn-lg btn-danger btn-block text-uppercase" href="{{route('register')}}">Log in</a>
-                            </div>
+                            <div class="mx-auto text-center text-dark"><span>You already have an account!</span></div>
+
+                            <div class="mx-auto text-center text-dark"><span><a href="{{route('register')}}"><strong class="">Log in now</strong></a></span></div>
+
+{{--                            <div class="form-label-group">--}}
+{{--                                <a class="btn btn-lg btn-danger btn-block text-uppercase" href="{{route('register')}}">Log in</a>--}}
+{{--                            </div>--}}
 
                         </form>
                     </div>

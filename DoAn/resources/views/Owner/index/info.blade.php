@@ -3,59 +3,121 @@
 @section('content')
     <div class="container-fluid d-flex">
         <div id="menu" class="col-2 mr-auto flex-fill p-0 ">
-            <div id="" class="">
-                <div id="sidebar" class="">
-                    <h2>DashBoard</h2>
-                    <hr class="p-o m-0">
-                    <ul id="" class="nav nav-pills nav-fill">
-                        <li class="nav-item m-0 p-0">
-                            <a class="nav-link text-left" href="">
-                                <i class="fa fa-users"></i> Personal information</a>
-                        </li>
-                    </ul>
-                    <ul id="" class="nav nav-pills nav-fill">
-                        <li class="nav-item m-0 p-0">
-                            <a class="nav-link text-left" href="{{url('owner/pitch')}}">
-                                <i class="fa fa-list"></i> Pitch Management</a>
-                        </li>
-                    </ul>
-                    <ul id="" class="nav nav-pills nav-fill">
-                        <li class="nav-item m-0 p-0">
-                            <a class="nav-link text-left" href="#">
-                                <i class="fa fa-product-hunt"></i> Order Management</a>
-                        </li>
-                    </ul>
-
-                    <ul id="" class="nav nav-pills nav-fill">
-                        <li class="nav-item m-0 p-0">
-                            <a class="nav-link text-left" href="#">
-                                <i class="fa fa-product-hunt"></i> History Management</a>
-                        </li>
-                    </ul>
-
-                </div>
-            </div>
+            @include('Owner.component.OwnerSidebar')
         </div>
+
         <div id="content" class="col-10 flex-fill   m-0 p-0 border-top">
+            <div class="col-md-10 offset-md-1">
+                <span class="anchor" id="formChangePassword"></span>
+{{--                <hr class="mb-1">--}}
 
-            <div class="py-3">
-                <div class="col-10 mx-auto m-0 p-0"><h1>Personal Information</h1></div>
-                <div class="col-10 mx-auto card card-body shadow"  >
+                <!-- form card change user data-->
+                @foreach ($data as $data)
+                    <div class="card card-outline-secondary mt-1">
+                        <div class="card-header">
+                            <h3 class="mb-0">User Information</h3>
+                        </div>
+                        <div class="card-body">
+                            <form class="form" role="form" autocomplete="off">
+                                <div class="form-group">
+                                    <label for="">User Name</label>
+                                    <input type="text" class="form-control" id="" required="" disabled value="{{$data->name}}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Email Address</label>
+                                    <input type="text" class="form-control" id="" required="" disabled value="{{$data->email}}">
+                                    {{--                                <span class="form-text small text-muted">--}}
+                                    {{--                                            The password must be 8-20 characters, and must <em>not</em> contain spaces.--}}
+                                    {{--                                        </span>--}}
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Phone Number</label>
+                                    <input type="text" class="form-control" id="" required="" disabled value="{{$data->phone}}">
+                                    {{--                                <span class="form-text small text-muted">--}}
+                                    {{--                                            To confirm, type the new password again.--}}
+                                    {{--                                        </span>--}}
+                                </div>
+                                <div class="form-group">
+                                    <button type="" class="btn btn-danger btn-md float-right ml-2" disabled>Change
+                                    </button>
+                                    <button type="submit" class="btn btn-success btn-md float-right">Edit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                @endforeach
 
-                    <div class="form-row col-8 mx-auto d-block">
-                        <label for="Name" class="font-weight-bold ">Name</label>
-                        <input type="text"  name="name" class="form-control">
-                    </div>
-                    <div class="form-row col-8 mx-auto d-block">
-                        <label for="Name" class="font-weight-bold ">Email</label>
-                        <input type="text"  name="name" class="form-control">
-                    </div>
-                    <div class="form-row col-8 mx-auto d-block">
-                        <label for="Name" class="font-weight-bold ">Phone</label>
-                        <input type="text"  name="name" class="form-control">
-                    </div>
-                </div>
+
             </div>
+
+{{--            <div class="row p-0 m-0">--}}
+{{--                <div class="col-md-7 ">--}}
+{{--                    <span class="anchor" id="formChangePassword"></span>--}}
+{{--                    <hr class="mb-5">--}}
+
+{{--                    <!-- form card change password -->--}}
+{{--                    <div class="card card-outline-secondary">--}}
+{{--                        <div class="card-header">--}}
+{{--                            <h3 class="mb-0">Change Password</h3>--}}
+{{--                        </div>--}}
+{{--                        <div class="card-body">--}}
+{{--                            <form class="form" role="form" autocomplete="off">--}}
+{{--                                <div class="form-group">--}}
+{{--                                    <label for="inputPasswordOld">Current Password</label>--}}
+{{--                                    <input type="password" class="form-control" id="inputPasswordOld" required="">--}}
+{{--                                </div>--}}
+{{--                                <div class="form-group">--}}
+{{--                                    <label for="inputPasswordNew">New Password</label>--}}
+{{--                                    <input type="password" class="form-control" id="inputPasswordNew" required="">--}}
+{{--                                    <span class="form-text small text-muted">--}}
+{{--                                            The password must be 8-20 characters, and must <em>not</em> contain spaces.--}}
+{{--                                        </span>--}}
+{{--                                </div>--}}
+{{--                                <div class="form-group">--}}
+{{--                                    <label for="inputPasswordNewVerify">Verify</label>--}}
+{{--                                    <input type="password" class="form-control" id="inputPasswordNewVerify" required="">--}}
+{{--                                    <span class="form-text small text-muted">--}}
+{{--                                            To confirm, type the new password again.--}}
+{{--                                        </span>--}}
+{{--                                </div>--}}
+{{--                                <div class="form-group">--}}
+{{--                                    <button type="submit" class="btn btn-success btn-lg float-right">Save</button>--}}
+{{--                                </div>--}}
+{{--                            </form>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <!-- /form card change password -->--}}
+
+{{--                </div>--}}
+{{--                <div class="col-md-5 ">--}}
+{{--                    <span class="anchor" id="formResetPassword"></span>--}}
+{{--                    <hr class="mb-5">--}}
+
+{{--                    <!-- form card reset password -->--}}
+{{--                    <div class="card card-outline-secondary">--}}
+{{--                        <div class="card-header">--}}
+{{--                            <h3 class="mb-0">Password Reset</h3>--}}
+{{--                        </div>--}}
+{{--                        <div class="card-body">--}}
+{{--                            <form class="form" role="form" autocomplete="off">--}}
+{{--                                <div class="form-group">--}}
+{{--                                    <label for="inputResetPasswordEmail">Email</label>--}}
+{{--                                    <input type="email" class="form-control" id="inputResetPasswordEmail" required="">--}}
+{{--                                    <span id="helpResetPasswordEmail" class="form-text small text-muted">--}}
+{{--                                            Password reset instructions will be sent to this email address.--}}
+{{--                                        </span>--}}
+{{--                                </div>--}}
+{{--                                <div class="form-group">--}}
+{{--                                    <button type="submit" class="btn btn-success btn-lg float-right">Reset</button>--}}
+{{--                                </div>--}}
+{{--                            </form>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <!-- /form card reset password -->--}}
+
+{{--                </div>--}}
+{{--            </div>--}}
+
 
         </div>
     </div>

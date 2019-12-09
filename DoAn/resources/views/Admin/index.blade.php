@@ -1,7 +1,7 @@
 @extends('layouts.app')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="css/adminIndex.css">
-<link rel="stylesheet" href="css/signUpStyle.css">
+<link rel="stylesheet" type="text/css" href="{{asset('css/adminIndex.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('css/signUpStyle.css')}}">
 @section('content')
     <div class="container-fluid d-flex">
         <div id="menu" class="col-2 mr-auto flex-fill p-0 ">

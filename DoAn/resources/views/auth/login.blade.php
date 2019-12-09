@@ -48,10 +48,11 @@
                             {{--                                </a>--}}
                             {{--                            @endif--}}
                             <hr>
-                            <div class="pb-2 mx-auto text-center text-dark"><span><strong>You don't have an account<br>Just register!</strong></span></div>
-                            <div class="form-label-group">
-                                <a class="btn btn-lg btn-danger btn-block text-uppercase" href="{{route('register')}}">Register</a>
-                            </div>
+                            <div class="mx-auto text-center text-dark"><span>You don't have an account?</span></div>
+                            <div class="mx-auto text-center text-dark"><a href="{{route('register')}}"><strong>Register now</strong></a></div>
+{{--                            <div class="form-label-group">--}}
+{{--                                <a class="btn btn-lg btn-danger btn-block text-uppercase" href="{{route('register')}}">Register</a>--}}
+{{--                            </div>--}}
 
 
                         </form>

@@ -16,11 +16,15 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('user_id');
+            $table->integer('pitch_id');
             $table->integer('sub_pitch_id');
-            $table->dateTime('start_time');
-            $table->dateTime('end_time');
+            $table->integer('type');
+            $table->string('subpitch_name');
+            $table->date('date_order');
+            $table->Time('start_time');
+            $table->Time('end_time');
             $table->bigInteger('bill');
-//            $table->timestamps();
+
         });
     }
 

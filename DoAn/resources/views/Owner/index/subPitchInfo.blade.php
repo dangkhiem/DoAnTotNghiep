@@ -1,165 +1,489 @@
 @extends('layouts.app')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="{{asset('css/subPitch.css')}}">
+{{--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">--}}
+{{--<link rel="stylesheet" href="{{asset('css/subPitch.css')}}">--}}
 @section('content')
-    <div class="container-fluid p-0 m-0 ">
-        @foreach($pitch as $data)
-            {{--            banner--}}
-            <div class="row resizeImg p-0 m-0">
-                <div class="resizeImg" style="background-image: url({{asset($data->img)}});">
-                </div>
-            </div>
 
-            {{--        Pitch info--}}
-            <div>
+    <div class="container-fluid d-flex">
+        <div id="menu" class="col-2 mr-auto flex-fill p-0 ">
+            @include('Owner.component.OwnerSidebar')
+        </div>
 
-            </div>
+        <div id="content" class="col-10 flex-fill m-0 p-0 ">
+            <div class="container ">
+                {{--form 5--}}
+                <div class="card card-body p-5 m-3  shadow">
+                    <h1 class="text-uppercase text-center text-white p-1" style="background-color: #fb8c00">Sân 5 người</h1>
+                    <div class="row">
+                        <div class="col-4">
+                            <h3>Danh sách sân</h3>
 
-            <div class="container mt-3 mb-5">
-                <div class="row">
-                    @if ($subPitchInfo->min('type') == 5)
-                        <div class="col-6">
-                            <div class="card card-body">
-                                <h5 class="p-3 text-white text-center text-uppercase" style="background-color: #fb8c00">
-                                    SÂN 5</h5>
-                                <h5 class="text-center">{{$subPitchInfo->min('start_time')}}
-                                    - {{$subPitchInfo->max('end_time')}}</h5>
-                                {{--                            <h5>Bảng giá thuê sân theo giờ</h5>--}}
-                                <div class="row" p-0 m-0>
-                                    <div class="col-6 text-center">Thời gian</div>
-                                    <div class="col-6 text-center">Đơn giá/h</div>
-                                </div>
-                                @foreach($subPitchInfo as $money)
-                                    @if ($money->type == 5)
-                                        <hr>
-                                        <div class="text-center text-danger text row">
-                                            <div class="col-6 text-center"><strong>{{$money->start_time}}
-                                                    - {{$money->end_time}}</strong></div>
-                                            <div class="col-6 text-center"><strong>  {{$money->cost}}(nghìn
-                                                    đồng) </strong></div>
-
+                            @foreach($ListSubPitch as $data)
+                                @if ($data->type == 5)
+                                    <form action="#">
+                                        @csrf
+                                        <div class="input-group p-2">
+                                            <input class="form-control width100" placeholder="Tên Sân"
+                                                   name="SubPitchName" value="{{$data->name}}">
+                                            <span class="input-group-btn">
+                                            <button class="btn btn-success" type="submit">Lưu</button>
+                                            <button class="btn btn-danger" type="button"
+                                                    onclick="FunctionDeleteSubPitch({{$data->id}})">Xóa</button>
+                                    </span>
                                         </div>
-                                    @endif
-                                @endforeach
-                                <div class="row pt-3">
-                                    <div class="col-5"></div>
-                                    <div class="btn-group text-right col-2">
-                                        @foreach($subPitchInfo as $data)
-                                            @if ($data->type == 5)
-                                                <button type="button" class="btn bg-info  m-1 text-white"
-                                                        onclick="editSubPitchFunction({{$data->pitch_id}}, {{$data->type}})">
-                                                    <i class="fa fa-edit text-white"></i>
-                                                </button>
-                                                <button type="button" class="btn bg-danger  m-1 text-white "
-                                                        onclick="deleteSubPitchFunction({{$data->pitch_id}}, {{$data->type}})">
-                                                    <i class="fa fa-trash"></i>
-                                                </button>
-                                                @break
-                                            @endif
-                                        @endforeach
-                                    </div>
-                                </div>
+                                    </form>
+                                @endif
+                            @endforeach
+                            <div class="font-weight-bold">
+                                <hr class="border-dark">
                             </div>
-                        </div>
-                    @endif
-                    @if ($subPitchInfo->max('type') == 7)
-                        <div class="col-6">
-                            <div class="card card-body">
-                                <h5 class="p-3 text-white text-center text-uppercase" style="background-color: #fb8c00">
-                                    SÂN 7</h5>
-                                <h5 class="text-center">{{$subPitchInfo->min('start_time')}}
-                                    - {{$subPitchInfo->max('end_time')}}</h5>
-                                <div class="row" p-0 m-0>
-                                    <div class="col-6 text-center">Thời gian</div>
-                                    <div class="col-6 text-center">Đơn giá/h</div>
+
+                            {{--form thêm sân--}}
+                            <form method="post" id="formAddSubPitch" class="p-2">
+                                @csrf
+                                <div class="input-group">
+                                    @foreach ($Pitch as $data)
+                                        <input type="hidden" name="pitch_id" value="{{$data->id}}">
+                                    @endforeach
+                                    <input type="hidden" name="type" value="5">
+                                    <input class="form-control width100" placeholder="Tên Sân" name="SubPitchName">
+                                    <span class="input-group-btn">
+                                            <button class="btn btn-primary" type="submit">Thêm</button>
+                                    </span>
                                 </div>
-                                @foreach($subPitchInfo as $money)
-                                    @if ($money->type == 7)
-                                        <hr>
-                                        <div class="text-center text-danger text row">
-                                            <div class="col-6 text-center"><strong>{{$money->start_time}}
-                                                    - {{$money->end_time}}</strong></div>
-                                            <div class="col-6 text-center"><strong>  {{$money->cost}}(nghìn
-                                                    đồng) </strong></div>
+                                <div class="w-100 p-0 m-0">
+                                    <label for="" class="m-0 p-0 row bg-danger text-white"
+                                           id="add-error-sub-name">
+                                    </label>
+                                </div>
+                            </form>
+
+
+                        </div>
+
+                        <div class="col-8">
+                            <h3>Khung Giá</h3>
+                            {{--                            view gia thue san theo thoiw gian--}}
+                            @foreach ($ListPrice as $price)
+                                @if ($price->type ==5)
+
+                                    <form method="post" class="p-2">
+                                        @csrf
+                                        <div class="input-group">
+                                            <input type="hidden" value="{{$price->pitch_id}}" name="pitch_id">
+                                            <input type="hidden" value="5" name="type">
+                                            <input class="form-control width100" name="" value="{{$price->start_time}}">
+                                            <input class="form-control width100" name="" value="{{$price->end_time}}">
+                                            <input class="form-control width100" name="" value="{{$price->cost}}">
+                                            <span class="input-group-btn">
+                                            <button class="btn btn-success" type="submit" onclick="">Lưu</button>
+                                            <button class="btn btn-danger" type="button"
+                                                    onclick="FunctionDeletePrice({{$price->id}})">Xóa
+                                            </button>
+                                        </span>
                                         </div>
-                                    @endif
-                                @endforeach
-                                <div class="row pt-3">
-                                    <div class="col-5"></div>
-                                    <div class="btn-group text-right col-2">
-                                        @foreach($subPitchInfo as $data)
-                                            @if ($data->type == 7)
-                                                <button type="button" class="btn bg-info  m-1 text-white"
-                                                        onclick="editSubPitchFunction({{$data->pitch_id}}, {{$data->type}})">
-                                                    <i class="fa fa-edit text-white"></i>
-                                                </button>
-                                                <button type="button" class="btn bg-danger  m-1 text-white "
-                                                        onclick="deleteSubPitchFunction({{$data->pitch_id}}, {{$data->type}})">
-                                                    <i class="fa fa-trash"></i>
-                                                </button>
-                                                @break
-                                            @endif
-                                        @endforeach
-                                    </div>
-                                </div>
+                                    </form>
+                                @endif
+                            @endforeach
+                            <div class="font-weight-bold">
+                                <hr class="border-dark">
                             </div>
+                            <form method="post" id="formAddPrice">
+                                @csrf
+                                @foreach ($Pitch as $dataPrice)
+                                    <input type="hidden" value="{{$dataPrice->id}}" name="pitch_id">
+                                    <input type="hidden" value="5" name="type">
+                                    @break
+                                @endforeach
+
+                                <div class="input-group">
+                                    <div class="form-label-group">
+                                        <label for="Thời gian bắt đầu">Thời gian bắt đầu</label>
+                                        <input class="form-control width100" name="start_time">
+                                    </div>
+                                    <div class="form-label-group">
+                                        <label for="Thời gian kết thúc">Thời gian kết thúc</label>
+                                        <input class="form-control width100" name="end_time">
+                                    </div>
+                                    <div class="form-label-group">
+                                        <label for="Đơn giá">Đơn giá</label>
+                                        <input class="form-control width100" name="cost">
+                                    </div>
+                                    <div class="w-100 p-0 m-0">
+                                        <label for="" class="m-0 p-0 row bg-danger text-white"
+                                               id="add-error-start_time">
+                                        </label>
+                                        <label for="" class="m-0 p-0 row bg-danger text-white" id="add-error-end_time">
+                                        </label>
+                                        <label for="" class="m-0 p-0 bg-danger text-white" id="add-error-cost">
+                                        </label>
+                                    </div>
+                                    <span class="input-group-btn">
+                                            <button type="submit" id="btnAddPrice" class="btn btn-success">Thêm</button>
+                                    </span>
+                                </div>
+                            </form>
                         </div>
-                    @endif
-                </div>
-            </div>
+                    </div>
 
-        @endforeach
-    </div>
+                </div>
+                {{--form 7--}}
+                <div class="card card-body p-5 m-3  shadow">
+                    <h1 class="text-uppercase text-center text-white p-1" style="background-color: #fb8c00">Sân 7 người</h1>
+                    <div class="row">
+                        <div class="col-4">
+                            <h3>Danh sách sân</h3>
 
-    {{--    FOOTER--}}
-    <div class="py-5  text-muted clearpostition">
-        <div class="container ">
-            <div class="row">
-                <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
-                    <h6 class="font-weight-bold text-uppercase text-dark mb-3">Về Sporta</h6>
-                    <ul class="list-unstyled">
-                        <li><a href="/pages/about-us" class="text-muted">Giới thiệu Sporta</a></li>
-                        <li><a href="/bai-viet/" class="text-muted">Blog</a></li>
-                        <li><a href="/pages/dieu-khoan-su-dung" class="text-muted">Điều khoản sử dụng</a></li>
-                        <li><a href="/pages/chinh-sach-bao-mat" class="text-muted">Chính sách bảo mật</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-3 mb-5 mb-lg-0">
-                    <div class="font-weight-bold text-uppercase text-dark mb-3">Thông tin liên hệ</div>
-                    <ul class="list-unstyled">
-                        <li class="text-muted"><a href="https://www.facebook.com/sportavn/" target="_blank"
-                                                  title="facebook" class="text-muted text-hover-primary"><i
-                                        class="fab fa-facebook"></i> /sportavn</a></li>
-                        <li class="text-muted"><a class="text-muted text-hover-primary" href="mailto:hello@sporta.vn"><i
-                                        class="fas fa-envelope"></i> hello@sporta.vn</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
-                    <h6 class="text-uppercase text-dark mb-3 font-weight-bold">Thanh toán</h6>
-                    <ul class="list-unstyled">
-                        <li class="text-muted"><a class="text-muted text-hover-primary"><img
-                                        style="height: 25px; margin-bottom: 10px"
-                                        src="https://www.sporta.vn/assets/momo-f2c88c55af645265139d91c8ec6e31182b68283d335ef35dff10bc90da8ddb3b.png"
-                                        alt="Momo"> Momo</a></li>
-                        <li class="text-muted"><a class="text-muted text-hover-primary"><i
-                                        class="fas fa-money-check-alt" style="font-size: 20px;"></i> Tiền mặt</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
-                    <h6 class="text-uppercase text-dark mb-3 font-weight-bold">Ứng dụng di động</h6>
-                    <ul class="list-unstyled">
-                        <li><a href="https://apps.apple.com/vn/app/sporta/id1469001632"><img style="width: 150px"
-                                                                                             src="https://www.sporta.vn/assets/icon-appstore-0ac658e90248e413db2bdc584e50b25b06a8229f6a74efb816b93194d0491829.svg"
-                                                                                             alt="Icon appstore"></a>
-                        </li>
-                        <li><a href="https://play.google.com/store/apps/details?id=vn.sporta.sportaandroid"><img
-                                        style="width: 150px"
-                                        src="https://www.sporta.vn/assets/icon-googleplaystore-87014b724e646f2c8dce71506e67424975dd3f81a59b3e8f356ce501a0c6e458.svg"
-                                        alt="Icon googleplaystore"></a></li>
-                    </ul>
+                            @foreach($ListSubPitch as $data)
+                                @if ($data->type == 7)
+                                    <form action="#">
+                                        @csrf
+                                        <div class="input-group p-2">
+                                            <input class="form-control width100" placeholder="Tên Sân"
+                                                   name="SubPitchName" value="{{$data->name}}">
+                                            <span class="input-group-btn">
+                                            <button class="btn btn-success" type="submit">Lưu</button>
+                                            <button class="btn btn-danger" type="button"
+                                                    onclick="FunctionDeleteSubPitch({{$data->id}})">Xóa</button>
+                                    </span>
+                                        </div>
+                                    </form>
+                                @endif
+                            @endforeach
+                            <div class="font-weight-bold">
+                                <hr class="border-dark">
+                            </div>
+
+                            {{--form thêm sân--}}
+                            <form method="post" id="formAddSubPitch7" class="p-2">
+                                @csrf
+                                <div class="input-group">
+                                    @foreach ($Pitch as $data)
+                                        <input type="hidden" name="pitch_id" value="{{$data->id}}">
+                                    @endforeach
+                                    <input type="hidden" name="type" value="7">
+                                    <input class="form-control width100" placeholder="Tên Sân" name="SubPitchName">
+                                    <span class="input-group-btn">
+                                            <button class="btn btn-primary" type="submit">Thêm</button>
+                                    </span>
+                                </div>
+                                <div class="w-100 p-0 m-0">
+                                    <label for="" class="m-0 p-0 row bg-danger text-white"
+                                           id="add-error-sub-name7">
+                                    </label>
+                                </div>
+                            </form>
+
+
+                        </div>
+
+                        <div class="col-8">
+                            <h3>Khung Giá</h3>
+                            {{--                            view gia thue san theo thoiw gian--}}
+                            @foreach ($ListPrice as $price)
+                                @if ($price->type ==7)
+
+
+                                    <form method="post" class="p-2">
+                                        @csrf
+                                        <div class="input-group">
+                                            <input type="hidden" value="{{$price->pitch_id}}" name="pitch_id">
+                                            <input type="hidden" value="7" name="type">
+                                            <input class="form-control width100" name="" value="{{$price->start_time}}">
+                                            <input class="form-control width100" name="" value="{{$price->end_time}}">
+                                            <input class="form-control width100" name="" value="{{$price->cost}}">
+                                            <span class="input-group-btn">
+                                            <button class="btn btn-success" type="submit" onclick="">Lưu</button>
+                                            <button class="btn btn-danger" type="button"
+                                                    onclick="FunctionDeletePrice({{$price->id}})">Xóa
+                                            </button>
+                                        </span>
+                                        </div>
+                                    </form>
+                                @endif
+                            @endforeach
+                            <div class="font-weight-bold">
+                                <hr class="border-dark">
+                            </div>
+                            <form method="post" id="formAddPrice7">
+                                @csrf
+                                @foreach ($Pitch as $dataPrice)
+                                    <input type="hidden" value="{{$dataPrice->id}}" name="pitch_id">
+                                    <input type="hidden" value="7" name="type">
+                                    @break
+                                @endforeach
+
+                                <div class="input-group">
+                                    <div class="form-label-group">
+                                        <label for="Thời gian bắt đầu">Thời gian bắt đầu</label>
+                                        <input class="form-control width100" name="start_time">
+                                    </div>
+                                    <div class="form-label-group">
+                                        <label for="Thời gian kết thúc">Thời gian kết thúc</label>
+                                        <input class="form-control width100" name="end_time">
+                                    </div>
+                                    <div class="form-label-group">
+                                        <label for="Đơn giá">Đơn giá</label>
+                                        <input class="form-control width100" name="cost">
+                                    </div>
+                                    <div class="w-100 p-0 m-0">
+                                        <label for="" class="m-0 p-0 row bg-danger text-white"
+                                               id="add-error-start_time7">
+                                        </label>
+                                        <label for="" class="m-0 p-0 row bg-danger text-white" id="add-error-end_time7">
+                                        </label>
+                                        <label for="" class="m-0 p-0 bg-danger text-white" id="add-error-cost7">
+                                        </label>
+                                    </div>
+                                    <span class="input-group-btn">
+                                            <button type="submit" id="btnAddPrice7"
+                                                    class="btn btn-success">Thêm</button>
+                                    </span>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function () {
+            $("#btnAddPrice").attr("disabled", "disabled");
+            $("#formAddPrice").change(function () {
+                $("#btnAddPrice").removeAttr("disabled");
+
+                $("#btnAddPrice7").attr("disabled", "disabled");
+                $("#formAddPrice7").change(function () {
+                    $("#btnAddPrice7").removeAttr("disabled");
+                });
+            });
+        });
+        $(document).ready(function () {
+            $('#formAddPrice').submit(function (e) {
+                e.preventDefault();
+                $('#add-error-start_time').html('')
+                $('#add-error-end_time').html('')
+                $('#add-error-cost').html('')
+                var formAddPrice = $('#formAddPrice').serialize();
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    url: "{{route('StorePrice')}}",
+                    type: 'post',
+                    data: formAddPrice,
+                    // dataType: "json",
+                    // cache: false ,
+                    // contentType:false,
+                    success: function (data) {
+                        // $('#myAddModal').modal('hide');
+                        // $('#search_data').html(data.view)
+                        location.reload()
+                        swal({
+                            text: "create new",
+                            icon: "success",
+                        });
+                    },
+                    error: function (XMLHttpRequest) {
+                        // alert('123')
+                        // $("#btn_getStarted").attr("disabled", "disabled");
+                        errors = XMLHttpRequest.responseJSON.errors
+                        console.log(errors)
+                        $('#add-error-start_time').html(errors.start_time)
+                        $('#add-error-end_time').html(errors.end_time)
+                        $('#add-error-cost').html(errors.cost)
+                    }
+                })
+            })
+
+            $('#formAddSubPitch').submit(function (e) {
+                e.preventDefault();
+                $('#add-error-sub-name').html('')
+                var formAddSubPitch = $('#formAddSubPitch').serialize();
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    url: "{{route('StoreSubPitch')}}",
+                    type: 'post',
+                    data: formAddSubPitch,
+                    success: function (data) {
+                        location.reload()
+                        swal({
+                            text: "create new",
+                            icon: "success",
+                        });
+                    },
+                    error: function (XMLHttpRequest) {
+                        errors = XMLHttpRequest.responseJSON.errors
+                        console.log(errors)
+                        $('#add-error-sub-name').html(errors.SubPitchName)
+                    }
+                })
+            })
+
+
+
+            $('#formAddPrice7').submit(function (e) {
+                e.preventDefault();
+                $('#add-error-start_time7').html('')
+                $('#add-error-end_time7').html('')
+                $('#add-error-cost7').html('')
+                var formAddPrice = $('#formAddPrice7').serialize();
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    url: "{{route('StorePrice')}}",
+                    type: 'post',
+                    data: formAddPrice,
+                    // dataType: "json",
+                    // cache: false ,
+                    // contentType:false,
+                    success: function (data) {
+                        // $('#myAddModal').modal('hide');
+                        // $('#search_data').html(data.view)
+                        location.reload()
+                        swal({
+                            text: "create new",
+                            icon: "success",
+                        });
+                    },
+                    error: function (XMLHttpRequest) {
+                        // alert('123')
+                        // $("#btn_getStarted").attr("disabled", "disabled");
+                        errors = XMLHttpRequest.responseJSON.errors
+                        console.log(errors)
+                        $('#add-error-start_time7').html(errors.start_time)
+                        $('#add-error-end_time7').html(errors.end_time)
+                        $('#add-error-cost7').html(errors.cost)
+                    }
+                })
+            })
+
+            $('#formAddSubPitch7').submit(function (e) {
+                e.preventDefault();
+                $('#add-error-sub-name7').html('')
+                var formAddSubPitch = $('#formAddSubPitch7').serialize();
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    url: "{{route('StoreSubPitch')}}",
+                    type: 'post',
+                    data: formAddSubPitch,
+                    success: function (data) {
+                        location.reload()
+                        swal({
+                            text: "create new",
+                            icon: "success",
+                        });
+                    },
+                    error: function (XMLHttpRequest) {
+                        errors = XMLHttpRequest.responseJSON.errors
+                        console.log(errors)
+                        $('#add-error-sub-name7').html(errors.SubPitchName)
+                    }
+                })
+            })
+
+
+        });
+
+        function FunctionDeletePrice(id) {
+            Swal.fire({
+                title: 'Are you sure? ',
+                text: "You won't be able to revert this!",
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.value) {
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    $.ajax({
+                        url: "{{route('deletePrice')}}",
+                        type: 'delete',
+                        data: {
+                            dataGet: id,
+                        },
+                        success: function (data) {
+                            if (data.message) {
+                                Swal.fire({
+                                    title: 'Oops...',
+                                    text: data.message,
+                                })
+                            } else {
+                                // $('#search_data').html(data.view)
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Your file has been deleted.',
+                                    'success'
+                                )
+                            }
+                            location.reload();
+                        }
+                    });
+                }
+            })
+        }
+
+        function FunctionDeleteSubPitch($id) {
+            Swal.fire({
+                title: 'Are you sure? ',
+                text: "You won't be able to revert this!",
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.value) {
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    $.ajax({
+                        url: "{{route('deleteSubPitch')}}",
+                        type: 'delete',
+                        data: {
+                            dataGet: $id,
+                        },
+                        success: function (data) {
+                            if (data.message) {
+                                Swal.fire({
+                                    title: 'Oops...',
+                                    text: data.message,
+                                })
+                            } else {
+                                // $('#search_data').html(data.view)
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Your file has been deleted.',
+                                    'success'
+                                )
+                            }
+                            location.reload();
+                        }
+                    });
+                }
+            })
+        }
+
+    </script>
 
 @endsection

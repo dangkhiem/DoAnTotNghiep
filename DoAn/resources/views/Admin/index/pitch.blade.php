@@ -45,7 +45,7 @@
                                     <img class="img-fluid h-100" src="{{asset($data->img)}}" alt="">
                                 </div>
                                 <div class="col-8 pt-3 pb-3 align-self-center">
-                                    <h3 class="text-uppercase text-info p-1">Sân bóng đá Xuyên Việt</h3>
+                                    <h3 class="text-uppercase text-info p-1">{{$data->name}}</h3>
                                     <h5><i class="fa fa-map-marker p-1" aria-hidden="true">{{$data->address}}</i></h5>
                                     <h5><i class="fa p-1">Area: {{$data->area}}</i></h5>
                                     <a href="{{ \Illuminate\Support\Facades\URL::to('admin/pitch/'.$data->id) }}">Chi tiết</a>
