@@ -57,6 +57,7 @@ Route::prefix('owner')->group(function (){
 
 Route::post('/search', 'SearchController@index')->name('Search');
 Route::get('/search/{id}', 'SearchController@SearchSubPitch')->name('SearchSubPitch');
+Route::post('/search/searchfreetime', 'SearchController@SearchFreeTime')->name('SearchFreeTime');
 //Route::get('/search', 'SearchController@index')->name('Search');
 
 Route::get('/validate', function () {
@@ -64,3 +65,5 @@ Route::get('/validate', function () {
 });
 
 Route::get('testDB', 'Owner\SubPitchController@test');
+
+Route::get('/abc','SearchController@SearchFreeTime');

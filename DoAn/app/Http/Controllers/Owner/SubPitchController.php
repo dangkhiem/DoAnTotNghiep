@@ -35,6 +35,18 @@ class SubPitchController extends Controller
                 ]
             ], 422);
         }
+        $data = Pitch::where('id',$request->pitch_id)->get();
+        foreach ($data as $time) {
+            $open = $time->open_time;
+            $close = $time->close_time;
+        }
+        if ($request->start_time < $open || $request->end_time> $close){
+            return response()->json([
+                'errors' =>[
+                    "start_time" => "thời gian bắt đầu và kết thúc phải nằm trong khoảng từ $open đến $close "
+                ]
+            ],422);
+        }
         $beginHour = $request->start_time;
         $endHour = $request->end_time;
         $type57 = $request->type;
