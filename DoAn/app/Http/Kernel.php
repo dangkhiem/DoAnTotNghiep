@@ -6,6 +6,7 @@ use App\Http\Middleware\CheckAuth;
 use App\Http\Middleware\CheckRole;
 use App\Http\Middleware\CheckRoleAdmin;
 use App\Http\Middleware\CheckRoleOwner;
+use App\Http\Middleware\CheckRoleUser;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -69,6 +70,7 @@ class Kernel extends HttpKernel
         'role' => CheckRole::class,
         'roleAdmin' => CheckRoleAdmin::class,
         'roleOwner' => CheckRoleOwner::class,
+        'roleUser' => CheckRoleUser::class,
     ];
 
     /**

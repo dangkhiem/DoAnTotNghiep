@@ -31,13 +31,14 @@ Route::prefix('admin')->group(function () {
     Route::get('/pitch','Admin\PitchController@index')->name('pitch');
     Route::get('/pitch/{id}','Admin\SubPitchController@index')->name('subPitch');
     Route::post('pitch/store', 'Admin\PitchController@store')->name('storePitch');
-
 });
 
 Route::prefix('users')->group(function (){
     Route::get('/', 'User\UserController@index')->name('userDashboard');
+    Route::post('/', 'User\UserController@update')->name('updateInfo');
+    Route::get('/order', 'User\UserController@UserOrder')->name('UserOrder');
+    Route::get('/history', 'User\UserController@HistoryOrder')->name('HistoryOrder');
 });
-
 
 Route::prefix('owner')->group(function (){
 //    Owner manage user information
@@ -58,12 +59,13 @@ Route::prefix('owner')->group(function (){
 Route::post('/search', 'SearchController@index')->name('Search');
 Route::get('/search/{id}', 'SearchController@SearchSubPitch')->name('SearchSubPitch');
 Route::post('/search/searchfreetime', 'SearchController@SearchFreeTime')->name('SearchFreeTime');
+Route::post('search/order','SearchController@Order')->name('Order');
 //Route::get('/search', 'SearchController@index')->name('Search');
 
-Route::get('/validate', function () {
-    return view('Admin.component.validate');
+//Route::get('/validate', function () {
+//    return view('Admin.component.validate');
+//});
+
+Route::get('/abc',function (){
+    return view('User.test');
 });
-
-Route::get('testDB', 'Owner\SubPitchController@test');
-
-Route::get('/abc','SearchController@SearchFreeTime');

@@ -129,14 +129,9 @@
 
                         <div class="card card-body shadow">
                             <div id="dataSearch">
-{{--                                @include('searchResult', ['Order' => $Order])--}}
-{{--                                @if (isset($Order))--}}
-{{--                                    @if (count($Order))--}}
-{{--                                        <div>ngon roi ba con oi</div>--}}
-{{--                                    @endif--}}
-{{--                                    @else--}}
-{{--                                    <div>Chưa lấy dữ liệu sân trống...</div>--}}
-{{--                                @endif--}}
+                                <h5>Chọn sân và thời gian rồi nhấn Button tìm kiếm để tìm thời gian trống...</h5>
+
+
                             </div>
                         </div>
                     </div>

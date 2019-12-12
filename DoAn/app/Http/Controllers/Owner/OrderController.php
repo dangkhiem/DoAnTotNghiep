@@ -11,6 +11,12 @@ use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
+    public function  __construct()
+    {
+        $this->middleware('authentication');
+        $this->middleware('CheckRoleOwner');
+    }
+
     public function index(){
         $today = Carbon::now()->toDateString();
 
@@ -18,7 +24,6 @@ class OrderController extends Controller
         select * from orders  inner join pitches using(user_id) where date_order >= $today
         order by pitch_id, sub_pitch_id,type,start_time
         "));
-
 //        $ListOrder = Order::where('user_id',Auth::id())->whereDate('date_order','>=',$today)
 //            ->orderBy('pitch_id')
 //            ->orderBy('sub_pitch_id')

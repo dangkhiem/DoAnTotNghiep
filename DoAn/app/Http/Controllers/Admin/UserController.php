@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -19,7 +20,8 @@ class UserController extends Controller
     }
 
     public function index(){
-        $getListUser = User::paginate(10);
+        $getListUser = User::where('role_id',2)->orWhere('role_id',3)
+            ->orderBy('role_id', 'asc')->paginate(10);
         return view('Admin.index.user', compact('getListUser'));
     }
 

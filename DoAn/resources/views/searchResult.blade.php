@@ -1,52 +1,126 @@
 <div class="container">
-    <div class="row">
+    <h5>Danh sách các khoảng thời gian trống</h5>
+    <div id="accordion">
+        @foreach($Orders as $key=>$data)
+            @if ($data->start == $data->end)
+                @continue
+            @endif
+            <div class="pt-4">
+                <div class="card ">
+                    <div class="card-header" id="heading{{$key+1}}">
+                        <h5 class="mb-0">
+                            <button class="btn btn-group badge-danger" data-toggle="collapse"
+                                    data-target="#collapse{{$key+1}}" aria-expanded="true"
+                                    aria-controls="collapse{{$key+1}}">
+                                {{$data->start}}-{{$data->end}}
+                            </button>
+                        </h5>
+                    </div>
 
-        @foreach($Orders as $data)
-            <button type="button" class="btn btn-primary m-2" data-toggle="modal" data-target="#exampleModal{{$data->id}}">
-                {{$data->start}}-{{$data->end}}
-            </button>
-            <div class="modal fade" id="exampleModal{{$data->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                 aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-body">
-                            <form action="#">
+                    <div id="collapse{{$key+1}}" class="collapse " aria-labelledby="heading{{$key+1}}"
+                         data-parent="#accordion">
+                        <div class="card-body">
+                            <form method="post"  id="FormOrder{{$key+1}}">
                                 @csrf
                                 <div class="row p-3">
                                     <div class="">
+                                        <input type="hidden" name="pitch_id" value="{{{ $Data['pitch_id'] }}}">
+                                        <input type="hidden" name="subpitch_id" value="{{{ $Data['subpitch_id'] }}}">
+                                        <input type="hidden" name="date" value="{{{ $Data['date'] }}}">
+                                        <input type="hidden" name="type" value="{{{ $Data['type'] }}}">
+                                        <input type="hidden" name="name" value="{{{ $Data['name'] }}}">
                                         <label for="">StartTime</label>
-                                        <select class="custom-select" id="inputGroupSelect01">
+                                        <select class="custom-select" id="inputGroupSelect01" name="startTime">
                                             {{--                                    <option value="">Select Start time</option>--}}
                                             <?php $beginHour = \Illuminate\Support\Carbon::parse($data->start);
                                             $endHour = \Illuminate\Support\Carbon::parse($data->end);
                                             ?>
                                             @for($i = $beginHour; $i<$endHour; $i->addMinutes(30)){
-                                            <option name="" value="{{$i->toTimeString()}}">{{$i->toTimeString()}}</option>
+                                            <option name=""
+                                                    value="{{$i->toTimeString()}}">{{$i->toTimeString()}}</option>
                                             }
                                             @endfor
                                         </select>
                                     </div>
                                     <div class="">
                                         <label for="">End Time</label>
-                                        <select class="custom-select" id="inputGroupSelect02">
+                                        <select class="custom-select" id="inputGroupSelect02" name="endTime">
                                             {{--                                    <option value="">Select End time</option>--}}
                                             <?php $beginHour = \Illuminate\Support\Carbon::parse($data->start);
                                             $endHour = \Illuminate\Support\Carbon::parse($data->end);
                                             ?>
                                             @for($i = $beginHour->addMinutes(30); $i<=$endHour; $i->addMinutes(30)){
-                                            <option name="" value="{{$i->toTimeString()}}">{{$i->toTimeString()}}</option>
+                                            <option name=""
+                                                    value="{{$i->toTimeString()}}">{{$i->toTimeString()}}</option>
                                             }
                                             @endfor
                                         </select>
                                     </div>
                                 </div>
-                                <button class="btn btn-primary" type="button">Đăng Ký</button>
+                                <div>
+                                    <label for="" id="error-time" class="text-danger"></label>
+                                </div>
+                                <button class="btn btn-primary" type="button" onclick="OrderFunction('FormOrder{{$key+1}}')">Đăng Ký</button>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
         @endforeach
-
     </div>
 </div>
+
+<script type="text/javascript">
+    function OrderFunction(form){
+        $('#error-time').html('');
+            var OrderForm = $("#"+form+"").serialize();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: "{{route('Order')}}",
+                type: 'post',
+                data: OrderForm,
+                success: function (data) {
+                    // $('#dataSearch').html(data.view)
+                    Swal.fire({
+                        title: data.message,
+                        showClass: {
+                            popup: 'animated fadeInDown faster'
+                        },
+                        hideClass: {
+                            popup: 'animated fadeOutUp faster'
+                        }
+                    })
+                    location.reload()
+                },
+                error: function (XMLHttpRequest) {
+                    message =XMLHttpRequest.responseJSON.message
+                    errors = XMLHttpRequest.responseJSON.errors
+                    if (XMLHttpRequest.responseJSON.errors){
+                        $('#error-time').html(errors.endTime);
+                    }
+                    else {
+                        Swal.fire({
+                            title: message,
+                            showClass: {
+                                popup: 'animated fadeInDown faster'
+                            },
+                            hideClass: {
+                                popup: 'animated fadeOutUp faster'
+                            }
+                        })
+                    }
+
+
+                    // alert(XMLHttpRequest.responseJSON.message)
+                    // $("#btn_getStarted").attr("disabled", "disabled");
+                    // errors = XMLHttpRequest.responseJSON.errors
+                }
+            })
+
+    }
+</script>
+

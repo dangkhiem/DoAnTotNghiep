@@ -166,7 +166,7 @@ return [
          * Package Service Providers...
          */
         Collective\Html\HtmlServiceProvider::class,
-        BenSampo\Enum\EnumServiceProvider,
+//        BenSampo\Enum\EnumServiceProvider,
 
 
 

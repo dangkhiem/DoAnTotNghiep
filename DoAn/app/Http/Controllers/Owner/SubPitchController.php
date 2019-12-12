@@ -14,6 +14,12 @@ use Illuminate\Support\Facades\DB;
 
 class SubPitchController extends Controller
 {
+    public function  __construct()
+    {
+        $this->middleware('authentication');
+        $this->middleware('CheckRoleOwner');
+    }
+
     public function index($id)
     {
         $user_id = Auth::id();

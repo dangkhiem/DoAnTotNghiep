@@ -11,6 +11,12 @@ use Illuminate\Support\Facades\Auth;
 
 class PitchController extends Controller
 {
+    public function  __construct()
+    {
+        $this->middleware('authentication');
+        $this->middleware('CheckRoleOwner');
+    }
+
     public function index(){
         $id = Auth::id();
         $pitch = Pitch::where('user_id', $id)->get();

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="css/adminIndex.css">
-<link rel="stylesheet" href="css/signUpStyle.css">
+<link rel="stylesheet" href="{{asset("css/adminIndex.css")}}">
+<link rel="stylesheet" href="{{asset("css/signUpStyle.css")}}">
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 @section('content')
     <div class="container-fluid d-flex">
@@ -28,7 +28,6 @@
                                 <i class="fa fa-product-hunt"></i> Product Management</a>
                         </li>
                     </ul>
-
                 </div>
             </div>
         </div>
@@ -40,7 +39,8 @@
                             <h2>User <b>Management</b></h2>
                         </div>
                         <div class=" p-0 m-0 ml-auto">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#exampleModal">
                                 Add User
                             </button>
                             {{--                            <button onclick="getAddModal()" class="btn btn-primary"><i class="fa fa-plus"--}}
@@ -49,43 +49,50 @@
                         </div>
                     </div>
                 </div>
-                <table class="table table-striped  table-hover">
+                <table class="table  table-hover">
                     <thead>
-                    <tr class="text-uppercase">
+                    <tr class="font-weight-normal">
                         <th>Id</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Phone</th>
                         <th>Role</th>
                         <th>Action</th>
-
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($getListUser as $key => $data)
                         <tr id="rowUser{{$data->id}}">
-                            <td class="align-middle">{{$data->id }}</td>
+                            <td class="align-middle">{{$key+1}}</td>
                             <td class="align-middle">{{$data->name }}</td>
                             <td class="align-middle">{{$data->email }}</td>
                             <td class="align-middle">{{$data->phone}}</td>
-                            <td class="align-middle">{{$data->role_id}}</td>
-                                                        <td class="align-middle">
-                                                            <div class="btn-group ">
-                                                                <button type="button" class="btn bg-info  m-1 text-white"
-                                                                        onclick="editUserFunction({{$data->id}})">
-                                                                    <i class="fa fa-edit text-white"></i>
-                                                                </button>
-                                                                                                @if(($data->role_id) != 1)
-{{--                                                                                                @if(($data->role_id) != (\App\Enums\UserEnums::ADMIN))--}}
-                                                                <button type="button" class="btn bg-danger  m-1 text-white "
-                                                                        onclick="deleteUser({{$data->id}})">
-                                                                    <i class="fa fa-trash"></i>
-                                                                </button>
+                            @if ($data->role_id ==2)
+                                <td class="align-middle text-danger font-weight-bold">
+                                    Shop
+                                </td>
+                            @else
+                                <td class="align-middle btn-group">
+                                    User
+                                </td>
+                            @endif
+                            <td class="align-middle">
+                                <div class="btn-group ">
+                                    <button type="button" class="btn bg-info  m-1 text-white"
+                                            onclick="editUserFunction({{$data->id}})">
+                                        <i class="fa fa-edit text-white"></i>
+                                    </button>
+                                    @if(($data->role_id) != 1)
+                                        {{--                                                                                                @if(($data->role_id) != (\App\Enums\UserEnums::ADMIN))--}}
+                                        <button type="button" class="btn bg-danger  m-1 text-white "
+                                                onclick="deleteUser({{$data->id}})">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
 
-                                                                                                @endif
-                                                            </div>
+                                    @endif
+                                </div>
 
-                                                        </td>
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -101,10 +108,10 @@
     </div>
     @component('Admin.component.add')
     @endcomponent
-        @component('Admin.component.edit')
-        @endcomponent
-        @component('Admin.component.delete')
-        @endcomponent
+    @component('Admin.component.edit')
+    @endcomponent
+    @component('Admin.component.delete')
+    @endcomponent
 
 
     <script type="text/javascript">
