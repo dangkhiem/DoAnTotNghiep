@@ -42,8 +42,8 @@ class UserController extends Controller
     {
         $user_id = Auth::id();
         $time = Carbon::now()->toDateString();
-        $sql = "select pitches.name,pitches.address,orders.subpitch_name, orders.type,orders.date_order, orders.start_time, orders.end_time, orders.bill
- from orders inner join pitches on orders.pitch_id = pitches.id where date_order >= '$time'
+        $sql = "select orders.id,pitches.name,pitches.address,orders.subpitch_name, orders.type,orders.date_order, orders.start_time, orders.end_time, orders.bill
+ from pitches  inner join  orders on orders.pitch_id = pitches.id where date_order >= '$time'
         and orders.user_id = $user_id order by date_order desc";
         $data = DB::select(DB::raw($sql));
         return view('User.Order', compact('data'));

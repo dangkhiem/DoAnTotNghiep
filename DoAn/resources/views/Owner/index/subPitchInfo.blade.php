@@ -9,10 +9,45 @@
         </div>
 
         <div id="content" class="col-10 flex-fill m-0 p-0 ">
+            <div class="row m-0 p-0">
+                @foreach($Pitch as $data)
+                    <div class="w-100"
+                         style="background-image: url({{asset($data->img)}});min-height: 200px ;
+                                 background-repeat: no-repeat !important;
+                                 background-position: center center;
+                                 background-size: cover;
+                                 background-color: #444;
+                                 background-blend-mode: overlay;
+                                 ">
+                        <div class="container">
+                            <div class="p-5">
+                                <h1 class="font-weight-normal font-weight-light" style="color: orange">{{$data->name}}</h1>
+                                <button class="btn btn-primary text-white badge">
+                                    {{$data->area}}
+                                </button>
+                                <div class="pt-3 " style="font-family: 'Nunito', sans-serif; font-size:18px !important;">
+                                    <table>
+                                        <tbody class="text-white">
+                                        <tr>
+                                            <td><i class="far fa-clock"></i>{{$data->open_time}}-{{$data->close_time}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><i class="fas fa-map-marker-alt "
+                                                   style="font-size: 20px"></i>{{$data->address}}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+
             <div class="container ">
                 {{--form 5--}}
                 <div class="card card-body p-5 m-3  shadow">
-                    <h1 class="text-uppercase text-center text-white p-1" style="background-color: #fb8c00">Sân 5 người</h1>
+                    <h1 class="text-uppercase text-center text-white p-2" style="background-color: #fb8c00">Sân 5 người</h1>
                     <div class="row">
                         <div class="col-4">
                             <h3>Danh sách sân</h3>
@@ -25,7 +60,7 @@
                                             <input class="form-control width100" placeholder="Tên Sân"
                                                    name="SubPitchName" value="{{$data->name}}">
                                             <span class="input-group-btn">
-                                            <button class="btn btn-success" type="submit">Lưu</button>
+                                            <button class="btn btn-success" disabled type="submit">Lưu</button>
                                             <button class="btn btn-danger" type="button"
                                                     onclick="FunctionDeleteSubPitch({{$data->id}})">Xóa</button>
                                     </span>
@@ -75,7 +110,7 @@
                                             <input class="form-control width100" name="" value="{{$price->end_time}}">
                                             <input class="form-control width100" name="" value="{{$price->cost}}">
                                             <span class="input-group-btn">
-                                            <button class="btn btn-success" type="submit" onclick="">Lưu</button>
+                                            <button class="btn btn-success" type="submit" disabled onclick="">Lưu</button>
                                             <button class="btn btn-danger" type="button"
                                                     onclick="FunctionDeletePrice({{$price->id}})">Xóa
                                             </button>
@@ -95,14 +130,36 @@
                                     @break
                                 @endforeach
 
+                                @foreach($Pitch as $data)
+                                    <?php $time1 = $data->open_time;
+                                    $time2 = $data->close_time;
+                                    ?>
+                                @endforeach
                                 <div class="input-group">
-                                    <div class="form-label-group">
-                                        <label for="Thời gian bắt đầu">Thời gian bắt đầu</label>
-                                        <input class="form-control width100" name="start_time">
+                                    <div class="form-label-group col-4">
+                                        <label for="time5start">Thời gian bắt đầu</label>
+                                        <select class="form-control rounded-0" id="time5start" name="start_time">
+                                            <?php
+                                            $beginHour = \Illuminate\Support\Carbon::parse($time1);
+                                            $endHour = \Illuminate\Support\Carbon::parse($time2);
+                                            ?>
+                                            @for ($i = $beginHour; $i<=$endHour;  $i->addMinutes(30))
+                                                <option value=" {{$i->toTimeString()}}"> {{$i->toTimeString()}}   </option>
+                                            @endfor
+                                        </select>
+
                                     </div>
-                                    <div class="form-label-group">
-                                        <label for="Thời gian kết thúc">Thời gian kết thúc</label>
-                                        <input class="form-control width100" name="end_time">
+                                    <div class="form-label-group col-4">
+                                        <label for="time5end">Thời gian kết thúc</label>
+                                        <select class="form-control rounded-0" id="time5end" name="end_time">
+                                            <?php
+                                            $beginHour = \Illuminate\Support\Carbon::parse($time1);
+                                            $endHour = \Illuminate\Support\Carbon::parse($time2);
+                                            ?>
+                                            @for ($i = $beginHour; $i<=$endHour;  $i->addMinutes(30))
+                                                <option value=" {{$i->toTimeString()}}"> {{$i->toTimeString()}}   </option>
+                                            @endfor
+                                        </select>
                                     </div>
                                     <div class="form-label-group">
                                         <label for="Đơn giá">Đơn giá</label>
@@ -141,7 +198,7 @@
                                             <input class="form-control width100" placeholder="Tên Sân"
                                                    name="SubPitchName" value="{{$data->name}}">
                                             <span class="input-group-btn">
-                                            <button class="btn btn-success" type="submit">Lưu</button>
+                                            <button class="btn btn-success" disabled type="submit">Lưu</button>
                                             <button class="btn btn-danger" type="button"
                                                     onclick="FunctionDeleteSubPitch({{$data->id}})">Xóa</button>
                                     </span>
@@ -192,7 +249,7 @@
                                             <input class="form-control width100" name="" value="{{$price->end_time}}">
                                             <input class="form-control width100" name="" value="{{$price->cost}}">
                                             <span class="input-group-btn">
-                                            <button class="btn btn-success" type="submit" onclick="">Lưu</button>
+                                            <button class="btn btn-success" disabled type="submit" onclick="">Lưu</button>
                                             <button class="btn btn-danger" type="button"
                                                     onclick="FunctionDeletePrice({{$price->id}})">Xóa
                                             </button>
@@ -213,13 +270,30 @@
                                 @endforeach
 
                                 <div class="input-group">
-                                    <div class="form-label-group">
-                                        <label for="Thời gian bắt đầu">Thời gian bắt đầu</label>
-                                        <input class="form-control width100" name="start_time">
+                                    <div class="form-label-group col-4">
+                                        <label for="time7start">Thời gian bắt đầu</label>
+                                        <select class="form-control rounded-0" id="time7start" name="start_time">
+                                            <?php
+                                            $beginHour = \Illuminate\Support\Carbon::parse($time1);
+                                            $endHour = \Illuminate\Support\Carbon::parse($time2);
+                                            ?>
+                                            @for ($i = $beginHour; $i<=$endHour;  $i->addMinutes(30))
+                                                <option value=" {{$i->toTimeString()}}"> {{$i->toTimeString()}}   </option>
+                                            @endfor
+                                        </select>
+
                                     </div>
-                                    <div class="form-label-group">
-                                        <label for="Thời gian kết thúc">Thời gian kết thúc</label>
-                                        <input class="form-control width100" name="end_time">
+                                    <div class="form-label-group col-4">
+                                        <label for="time7end">Thời gian kết thúc</label>
+                                        <select class="form-control rounded-0" id="time7end" name="end_time">
+                                            <?php
+                                            $beginHour = \Illuminate\Support\Carbon::parse($time1);
+                                            $endHour = \Illuminate\Support\Carbon::parse($time2);
+                                            ?>
+                                            @for ($i = $beginHour; $i<=$endHour;  $i->addMinutes(30))
+                                                <option value=" {{$i->toTimeString()}}"> {{$i->toTimeString()}}   </option>
+                                            @endfor
+                                        </select>
                                     </div>
                                     <div class="form-label-group">
                                         <label for="Đơn giá">Đơn giá</label>
@@ -316,7 +390,7 @@
                     success: function (data) {
                         location.reload()
                         swal({
-                            text: "create new",
+                            text: "Thêm sân thành công",
                             icon: "success",
                         });
                     },
@@ -402,8 +476,8 @@
 
         function FunctionDeletePrice(id) {
             Swal.fire({
-                title: 'Are you sure? ',
-                text: "You won't be able to revert this!",
+                title: 'Bạn muốn xóa? ',
+                text: "Bạn sẽ không thể hoàn tác khi thực hiện",
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
@@ -444,8 +518,8 @@
 
         function FunctionDeleteSubPitch($id) {
             Swal.fire({
-                title: 'Are you sure? ',
-                text: "You won't be able to revert this!",
+                title: 'Bạn muốn xóa sân này? ',
+                text: "Bạn không thể hoàn tác khi thực hiện!",
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',

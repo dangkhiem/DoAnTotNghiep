@@ -9,7 +9,7 @@
                         <div class="card-body">
                             <h5 class="card-title text-center">Sign Up</h5>
                             <form class="form-signup"
-{{--                                  method="POST" --}}
+                                  method="POST"
                                   id="formAddUser">
                                 @csrf
 
@@ -19,13 +19,13 @@
                                            value="{{ old('name') }}" autocomplete="name" autofocus
                                            placeholder="Username">
                                     <label for="inputName">Username</label>
-                                    {{--                                    @error('name')--}}
+                                                                        @error('name')
                                     <div class="text-danger">
                                         <label for="" class="m-0 p-0">
                                             <strong id="add-error-name"></strong>
                                         </label>
                                     </div>
-                                    {{--                                    @enderror--}}
+                                                                        @enderror
                                 </div>
 
                                 <div class="form-label-group">
@@ -86,3 +86,56 @@
         </div>
     </div>
 </div>
+
+<script>
+    // $(document).ready(function(){
+    //     $("#btn_getStarted").attr("disabled", "disabled");
+    //     $("#formAddUser").change(function(){
+    //         $("#btn_getStarted").removeAttr("disabled");
+    //     });
+    // });
+    $(document).ready(function () {
+        $('#formAddUser').submit(function (e) {
+            e.preventDefault();
+            $('#add-error-name').html('')
+            $('#add-error-email').html('')
+            $('#add-error-phone').html('')
+            $('#add-error-password').html('')
+            // $('#add-error-password-confirmation').html('')
+            var addForm = $('#formAddUser').serialize();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            var deita = 'khiem'
+            $.ajax({
+                url: 'admin/users/add',
+                type: 'post',
+                data: addForm,
+                // dataType: "json",
+                // cache: false ,
+                // contentType:false,
+                success: function (data) {
+                    $('#myAddModal').modal('hide');
+                    // $('#search_data').html(data.view)
+                    location.reload()
+                    swal({
+                        text: "create new",
+                        icon: "success",
+                    });
+                },
+                error: function (XMLHttpRequest) {
+                    // alert('123')
+                    // $("#btn_getStarted").attr("disabled", "disabled");
+                    errors = XMLHttpRequest.responseJSON.errors
+                    // alert(errors)
+                    $('#add-error-name').html(errors.name);
+                    $('#add-error-email').html(errors.email);
+                    $('#add-error-password').html(errors.password);
+
+                }
+            })
+        })
+    });
+</script>

@@ -44,14 +44,14 @@
                 @endif
             </div>
 
-{{--            <div class="clearpostition col-12 p-0 m-0">--}}
-{{--                @include('layouts.footer')--}}
-{{--            </div>--}}
+            {{--            <div class="clearpostition col-12 p-0 m-0">--}}
+            {{--                @include('layouts.footer')--}}
+            {{--            </div>--}}
 
         </div>
-{{--        <div class="col-12 p-0 m-0 clearpostition clearfix d-block">--}}
-{{--            @include('layouts.footer')--}}
-{{--        </div>--}}
+        {{--        <div class="col-12 p-0 m-0 clearpostition clearfix d-block">--}}
+        {{--            @include('layouts.footer')--}}
+        {{--        </div>--}}
 
     </div>
 

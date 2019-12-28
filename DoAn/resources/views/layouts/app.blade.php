@@ -31,9 +31,9 @@
 
 <body>
     <div id="app" >
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light bg-dark shadow-sm ">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand text-white" href="{{ url('/') }}">
 {{--                    {{ Mini Sport}}--}}MiniSport
 {{--                    {{ config('app.name', 'Laravel') }}--}}
                 </a>
@@ -59,31 +59,31 @@
                             </li>
                         @else
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle text-white" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                <div class="dropdown-menu dropdown-menu-right " aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item " href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
                                     @if (Auth::user()->role_id == 1)
-                                        <a class="dropdown-item" href="{{ route('adminDashboard') }}">
+                                        <a class="dropdown-item " href="{{ route('adminDashboard') }}">
                                             {{ __('Admin DashBoard') }}
                                         </a>
                                     @elseif(Auth::user()->role_id == 2)
-                                        <a class="dropdown-item" href="{{ route('ownerDashboard') }}">
+                                        <a class="dropdown-item " href="{{ route('ownerDashboard') }}">
                                             {{ __('Owner DashBoard') }}
                                         </a>
                                         @elseif (Auth::user()->role_id == 3)
-                                        <a class="dropdown-item" href="{{ route('userDashboard') }}">
+                                        <a class="dropdown-item " href="{{ route('userDashboard') }}">
                                             {{ __('User DashBoard') }}
                                         </a>
                                         @endif
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    <form id="logout-form" class="" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
                                 </div>
@@ -97,7 +97,9 @@
         <main >
 {{--            class="py-4"--}}
             @yield('content')
+
         </main>
+{{--        @include('layouts.footer')--}}
     </div>
 </body>
 </html>

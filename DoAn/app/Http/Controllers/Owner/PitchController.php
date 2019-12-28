@@ -14,7 +14,7 @@ class PitchController extends Controller
     public function  __construct()
     {
         $this->middleware('authentication');
-        $this->middleware('CheckRoleOwner');
+        $this->middleware('roleOwner');
     }
 
     public function index(){

@@ -20,12 +20,15 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::prefix('admin')->group(function () {
+    Route::get('/','Admin\AdminController@index')->name('adminDashboard');
+    Route::post('/','Admin\AdminController@update')->name('updateAdminInfo');
+
 //    Admin manage User Controller
-    Route::get('/','AdminController@index')->name('adminDashboard');
     Route::get('/users','Admin\UserController@index')->name('getAllUser');
     Route::get('/users/getInfoAUser','Admin\UserController@getInfoAUser')->name('getInfoAUser');
     Route::post('/users/edit','Admin\UserController@edit')->name('EditUser');
     Route::post('/users/add','Admin\UserController@store')->name('StoreUser');
+    Route::delete('/users/delete','Admin\UserController@delete' )->name('DeleteUser');
 
 //    Admin manage Pitch Controller
     Route::get('/pitch','Admin\PitchController@index')->name('pitch');
@@ -54,17 +57,15 @@ Route::prefix('owner')->group(function (){
     Route::delete('pitch/deleteSubPitch','Owner\SubPitchController@deleteSubpitch')->name('deleteSubPitch');
 //Owner manage Order
     Route::get('order', 'Owner\OrderController@index')->name('OwnerOrder');
+    Route::get('history', 'Owner\OrderController@OrderHistory')->name('OrderHistory');
 });
 
 Route::post('/search', 'SearchController@index')->name('Search');
+Route::get('/search', 'SearchController@index');
 Route::get('/search/{id}', 'SearchController@SearchSubPitch')->name('SearchSubPitch');
+//Route::post('/search/{id}', 'SearchController@SearchSubPitch');
 Route::post('/search/searchfreetime', 'SearchController@SearchFreeTime')->name('SearchFreeTime');
 Route::post('search/order','SearchController@Order')->name('Order');
-//Route::get('/search', 'SearchController@index')->name('Search');
-
-//Route::get('/validate', function () {
-//    return view('Admin.component.validate');
-//});
 
 Route::get('/abc',function (){
     return view('User.test');

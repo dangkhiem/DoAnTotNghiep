@@ -17,17 +17,22 @@ class SubPitchController extends Controller
     public function  __construct()
     {
         $this->middleware('authentication');
-        $this->middleware('CheckRoleOwner');
+        $this->middleware('roleOwner');
     }
 
     public function index($id)
     {
         $user_id = Auth::id();
+        $Info = DB::select(DB::raw("
+        Select u.name,u.email,u.phone, p.name as pitch_name,p.img , p.area, p.address 
+        from users as u 
+        inner join pitches as p on u.id = p.user_id where p.id = $id"
+        ));
         $Pitch = Pitch::where('id', $id)->get();
         $ListSubPitch = Subpitch::where('pitch_id', $id)->where('user_id', $user_id)->get();
         $ListPrice = Subpitchdetail::where('pitch_id', $id)
             ->orderBy('type', 'asc')->orderBy('start_time', 'asc')->get();
-        return view('Owner.index.subPitchInfo', compact('ListSubPitch', 'ListPrice', 'Pitch'));
+        return view('Owner.index.subPitchInfo', compact('ListSubPitch', 'ListPrice', 'Pitch', 'Info'));
     }
 
     public function storePrice(OwnerRequestPrice $request)

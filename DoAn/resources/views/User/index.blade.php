@@ -7,17 +7,17 @@
                 @include('User.UserSidebar')
             </div>
             @foreach($data as $data)
-                <div id="content" class="col-10 flex-fill   m-0 p-0 border-top">
-                    <div class="col-md-10 offset-md-1">
+                <div id="content" class="col-10 flex-fill   m-0 p-0 border-top align-middle">
+                    <div class="col-md-8 offset-md-1 mx-auto pt-3">
                         <span class="anchor" id="formChangePassword"></span>
                         {{--                @foreach ($data as $data)--}}
-                        <div class="card card-outline-secondary mt-1">
+                        <div class="card card-outline-secondary mt-1 shadow">
                             <form action="{{route('updateInfo')}}" method="post">
                                 @csrf
                                 <div class="card-header">
                                     <h3 class="mb-0">User Information</h3>
                                 </div>
-                                <div class="card-body">
+                                <div class="card card-body shadow-lg">
                                     <form class="form" role="form" autocomplete="off">
                                         <div class="form-group">
                                             <label for="">Email Address</label>

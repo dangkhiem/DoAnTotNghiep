@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"
       type="text/css">
 @section('content')
-    <div class="container">
+    <div class="container p-2 ">
         <div class="row m-0 p-0">
             @foreach($Pitch as $data)
                 <div class="w-100"
@@ -47,8 +47,8 @@
                             <div class="col-12">
                                 <div class="card-body card shadow">
                                     <h1 class="text-center text-white" style="background-color: #ff9800">Sân 5</h1>
-                                    @foreach ($ListPrice as $data)
-                                        @if ($data->type ==5)
+
+
                                             <table class="table table-striped text-center align-middle table-bordered">
                                                 <thead>
                                                 <tr>
@@ -58,20 +58,23 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
+                                                @foreach ($ListPrice as $data)
+                                                    @if ($data->type ==5)
                                                 <tr>
                                                     <td>{{$data->start_time}}</td>
                                                     <td>{{$data->end_time}}</td>
                                                     <td>{{$data->cost}}</td>
                                                 </tr>
+                                                    @endif
+                                                @endforeach
                                                 </tbody>
                                             </table>
-                                        @endif
 
-                                    @endforeach
+
+
 
                                     <h1 class="text-center text-white" style="background-color: #ff9800">Sân 7</h1>
-                                    @foreach ($ListPrice as $data)
-                                        @if ($data->type ==7)
+
                                             <table class="table table-striped text-center align-middle table-bordered">
                                                 <thead>
                                                 <tr>
@@ -81,16 +84,18 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
+                                                @foreach ($ListPrice as $data)
+                                                    @if ($data->type ==7)
                                                 <tr>
                                                     <td>{{$data->start_time}}</td>
                                                     <td>{{$data->end_time}}</td>
                                                     <td>{{$data->cost}}</td>
                                                 </tr>
+                                                    @endif
+                                                @endforeach
                                                 </tbody>
                                             </table>
-                                        @endif
 
-                                    @endforeach
                                 </div>
 
                             </div>
@@ -100,7 +105,7 @@
                     <div class="col-8">
                         <div class="card card-body shadow">
                             <div class="row p-0 m-0">
-                                <form  class="w-100" method="post" id="FormSearchFreeTime">
+                                <form  class="w-100" method="post" id="FormSearchFreeTime" >
                                     @csrf
                                     <div class="row d-flex  p-0 m-0">
                                         <div class="col-6 p-0 m-0 input-group">
@@ -160,9 +165,10 @@
                         $('#dataSearch').html(data.view)
                     },
                     error: function (XMLHttpRequest) {
-                        alert('123')
                         // $("#btn_getStarted").attr("disabled", "disabled");
                         errors = XMLHttpRequest.responseJSON.errors
+                        console.log(errors)
+                        alert(errors)
                     }
                 })
             })

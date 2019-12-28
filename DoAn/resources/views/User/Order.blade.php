@@ -5,13 +5,13 @@
             <div id="menu" class="col-2 m-0 p-0 bg-secondary" style="height: 100% !important;">
                 @include('User.UserSidebar')
             </div>
-            @foreach($data as $key => $data)
                 <div id="content" class="col-10 flex-fill   m-0 p-0 border-top">
                     <div class="col-12 pt-2">
                         <div class="table-responsive">
                         <table class="table table-hover border">
                             <thead>
-                            <tr>
+
+                                <tr>
                                 <th scope="col">Stt</th>
                                 <th scope="col">Pitch</th>
                                 <th scope="col">Address</th>
@@ -23,7 +23,9 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
+                            @foreach($data as $key => $data)
+
+                                <tr>
                                 <th scope="row">{{$key+1}}</th>
                                 <td>{{$data->name}}</td>
                                 <td>{{$data->address}}</td>
@@ -33,14 +35,15 @@
                                 <td>{{$data->end_time}}</td>
                                 <td>{{$data->bill }}</td>
                             </tr>
+                            @endforeach
 
                             </tbody>
                         </table>
                         </div>
                     </div>
                 </div>
-            @endforeach
         </div>
     </div>
+
 @endsection
 

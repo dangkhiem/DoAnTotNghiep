@@ -14,14 +14,14 @@ class OrderController extends Controller
     public function  __construct()
     {
         $this->middleware('authentication');
-        $this->middleware('CheckRoleOwner');
+        $this->middleware('roleOwner');
     }
 
     public function index(){
+        $id = Auth::id();
         $today = Carbon::now()->toDateString();
-
         $ListOrder = DB::select(DB::raw("
-        select * from orders  inner join pitches using(user_id) where date_order >= $today
+        select * from orders  inner join pitches on orders.pitch_id = pitches.id where date_order >= '$today' and orders.user_id = $id
         order by pitch_id, sub_pitch_id,type,start_time
         "));
 //        $ListOrder = Order::where('user_id',Auth::id())->whereDate('date_order','>=',$today)
@@ -32,5 +32,25 @@ class OrderController extends Controller
 //            ->get();
         return view('Owner/index/Order', compact('ListOrder'));
     }
+
+    public function OrderHistory(){
+        $id = Auth::id();
+        $today = Carbon::now()->toDateString();
+        $ListOrder = DB::select(DB::raw("
+        select * from orders  inner join pitches on orders.pitch_id = pitches.id where date_order < '$today' and orders.user_id = $id
+        order by pitch_id, sub_pitch_id,type,start_time
+        "));
+        return view('Owner/index/Order', compact('ListOrder'));
+    }
+
+
+//    public function Order(){
+//        $id = Auth::id();
+//        $today = Carbon::now()->toDateString();
+//        $ListOrder = DB::select(DB::raw("
+//        select * from orders  inner join pitches on orders.pitch_id = pitches.id where date_order >= '$today' and orders.user_id = $id
+//        order by pitch_id, sub_pitch_id,type,start_time
+//        "));
+//    }
 
 }

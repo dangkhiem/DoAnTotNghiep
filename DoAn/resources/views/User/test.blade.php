@@ -1,5 +1,5 @@
 @extends('layouts.app')
-<link rel="stylesheet" href="{{asset('css/Dashboard.css')}}">
+{{--<link rel="stylesheet" href="{{asset('css/Dashboard.css')}}">--}}
 @section('content')
         <div class="container-fluid h-100 p-0 m-0">
             <div class="col-12 m-0 p-0 row d-flex d-block position-absolute" style="height: 100% !important;">
@@ -13,15 +13,6 @@
                         <button class="btn btnUser">4</button>
                         <button class="btn btnUser">5</button>
                     </div>
-{{--                    <div id="myDIV">--}}
-{{--                        <div class="row m-0 p-0">--}}
-{{--                            <button class="btn btn-block rounded border active"><a href="#">dsabdas</a></button>--}}
-{{--                        </div>--}}
-{{--                        <div class="row m-0 p-0">--}}
-{{--                            <button class="btn btn-block rounded border ">2</button>--}}
-{{--                        </div>--}}
-
-{{--                    </div>--}}
                 </div>
                 <div class=" col-9 p-0 m-0 bg-primary " style="height: 100% !important;">
                 </div>

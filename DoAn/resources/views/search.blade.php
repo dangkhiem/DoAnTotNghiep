@@ -6,9 +6,9 @@
             <div class="col-10">
 
                 <div class="card-body card shadow m-3">
-                    <form method="post">
+                    <form method="post" id="AjaxSearchData" action="{{route('Search')}}">
+                        @csrf
                     <div class="row d-flex justify-content-center p-0 m-0">
-
                             <div class="col-6 p-0 m-0">
                                 <input type="text" name="name" value="{{\Request::get('name') ?? ''}}"
                                        class="form-control"
@@ -35,35 +35,28 @@
                                 </select>
                             </div>
                             <div class="col-2 form-group">
-                                <button type="submit" class="btn btn-success">Tìm kiếm</button>
+                                <button type="submit" class="btn btn-success" id="btnAjaxSearchData">Tìm kiếm</button>
                             </div>
 
                     </div>
                     </form>
                 </div>
-                @foreach ($getListPitch as $data)
-
-
-                    <div class="card card-body m-3 shadow ">
-                        <div class="row p-0 m-0">
-                            <div class="col-4 pl-3 pr-3 m-0 pb-0">
-                                <img class="img-fluid" src="{{asset($data->img)}}" alt="" style="">
-                            </div>
-                            <div class="col-8 align-self-center">
-                                <h3 class="text-uppercase text-info p-1">{{$data->name}}</h3>
-                                <h5><i class="fa fa-map-marker p-1" aria-hidden="true">{{$data->address}}</i></h5>
-                                <h5><i class="fa p-1">Area: {{$data->area}}</i></h5>
-                                <button class="btn btn-primary ml-auto  d-block"><a class="text-white"
-                                                                                    href="{{url(asset('search/'.$data->id))}}">Chi
-                                        tiết</a></button>
-                                {{--                                <a href="{{url(asset('search/'.$data->id))}}">Chi tiết</a>--}}
-                            </div>
-                        </div>
-                    </div>
-
-                @endforeach
+                <div id="dataSearch">
+                    @include('SearchComponent.AjaxSearch', ['getListPitch' => $getListPitch])
+                </div>
 
             </div>
         </div>
     </div>
+
 @endsection
+
+
+<script type="text/javascript">
+    // $(document).ready(function () {
+    //     $("#btnAjaxSearchData").submit(function () {
+    //
+    //     })
+    // });
+{{--    AjaxSearchData--}}
+</script>

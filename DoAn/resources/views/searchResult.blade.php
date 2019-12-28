@@ -70,6 +70,7 @@
     </div>
 </div>
 
+
 <script type="text/javascript">
     function OrderFunction(form){
         $('#error-time').html('');
@@ -84,7 +85,7 @@
                 type: 'post',
                 data: OrderForm,
                 success: function (data) {
-                    // $('#dataSearch').html(data.view)
+                    $('#dataSearch').html(data.view)
                     Swal.fire({
                         title: data.message,
                         showClass: {
@@ -94,7 +95,7 @@
                             popup: 'animated fadeOutUp faster'
                         }
                     })
-                    location.reload()
+                    // location.reload()
                 },
                 error: function (XMLHttpRequest) {
                     message =XMLHttpRequest.responseJSON.message
@@ -114,10 +115,6 @@
                         })
                     }
 
-
-                    // alert(XMLHttpRequest.responseJSON.message)
-                    // $("#btn_getStarted").attr("disabled", "disabled");
-                    // errors = XMLHttpRequest.responseJSON.errors
                 }
             })
 

@@ -35,11 +35,11 @@
                 <div class="row bg-transparent">
                     <div class="col-xl-10">
                         <div class="text-center text-lg-left d-none d-md-block">
-                            <p class="display-4 letter-spacing-1 mb-2 text-shadow" style="color: #fb8c00">Sporta</p>
+                            <p class="display-4 letter-spacing-1 mb-2 text-shadow" style="color: #fb8c00">MiniSport</p>
                         </div>
                         <div class="text-center text-lg-left d-md-block">
                             <h3 class="display-5 text-shadow mb-3">
-                                ĐẶT SÂN NHANH CHÓNG - TÌM ĐỐI DỄ DÀNG
+                                ĐẶT SÂN NHANH CHÓNG - DỄ DÀNG
                             </h3>
                         </div>
                         <div class="row m-0 p-0">
@@ -67,7 +67,7 @@
                                             <?php $start = "05:00"; $end = "23:30";
                                             $beginHour = \Illuminate\Support\Carbon::parse($start);
                                             $endHour = \Illuminate\Support\Carbon::parse($end);
-                                                ?>
+                                            ?>
                                             @for ($i = $beginHour; $i<=$endHour;  $i->addMinutes(30))
                                                 <option value=" {{$i->toTimeString()}}"> {{$i->toTimeString()}}   </option>
                                             @endfor
@@ -127,10 +127,9 @@
                                  src="https://www.sporta.vn/assets/pr-5099167e7f25e00100225c9db1dbd0fb96c51c1dd95fd7e2e9f90d5a3186c985.svg"
                                  alt="Pr">
                         </div>
-                        <h3 class="h5 text-center">Tạo đội, tìm đối dễ với mobile app</h3>
+                        <h3 class="h5 text-center">Tiết kiệm thời gian - rèn luyện sức khỏe</h3>
                         <p class="text-muted text-center">
-                            Tạo cơ hội cọ sát cho các cầu thủ, kết bạn muôn nơi, giải tỏa mội căng thẳng, áp lực công
-                            việc
+                            Kết bạn muôn nơi, giải tỏa mọi căng thẳng, áp lực công việc
                         </p>
                     </div>
 
@@ -141,47 +140,67 @@
     </div>
 
     <div class="container">
-        <h3 class="text-center row ml-1">Sân Bóng Nổi Bật</h3>
+        <h3 class="text-center row ml-1">Địa Điểm Nổi Bật</h3>
         <div class="row ">
             <div class="col-3">
+                <form action="{{route('Search')}}" method="post">
+                    @csrf
+                    <input type="hidden" name="name" value="Liên Chiểu">
                 <div class="row imgRelative ml-1 mr-1" style="height: 300px;">
                     <div class="imgRS rounded" style="background-image: url({{asset('image/img1.png')}})">
                         <div class="textRelative">
-                            <h5>Sân bóng Liên chiểu</h5>
+{{--                            <h5>Sân bóng Liên chiểu</h5>--}}
+                            <button class="badge-lg btn-danger" type="submit">Sân bóng Liên Chiểu</button>
                         </div>
                     </div>
-                </div>
+                </div></form>
             </div>
             <div class="col-3">
-                <div class="row imgRelative ml-1 mr-1" style="height: 300px;">
-                    <div class="imgRS rounded" style="background-image: url({{asset('image/img3.png')}})">
-                        <div class="textRelative">
-                            <h5>Sân bóng Hải Châu</h5>
+                <form action="{{route('Search')}}" method="post">
+                    @csrf
+                    <input type="hidden" name="name" value="Hải Châu">
+                    <div class= "row imgRelative ml-1 mr-1" style="height: 300px;">
+                        <div class="imgRS rounded" style="background-image: url({{asset('image/img3.png')}})">
+                            <div class="textRelative">
+                                <button class="badge-lg btn-danger" type="submit">Sân bóng Hải Châu</button>
+{{--                                <h5>Sân bóng Hải Châu</h5>--}}
+                            </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
             <div class="col-3">
+                <form action="{{route('Search')}}" method="post">
+                    @csrf
+                    <input type="hidden" name="name" value="Cẩm Lệ">
                 <div class="row imgRelative ml-1 mr-1" style="height: 300px;">
                     <div class="imgRS rounded" style="background-image: url({{asset('image/img4.png')}})">
                         <div class="textRelative">
-                            <h5>Sân bóng Cẩm Lệ</h5>
+                            <button class="badge-lg btn-danger" type="submit">Sân bóng Cẩm Lệ</button>
+{{--                                <h5>Sân bóng Cẩm Lệ</h5>--}}
                         </div>
                     </div>
-                </div>
+                </div></form>
             </div>
             <div class="col-3">
+                <form action="{{route('Search')}}" method="post">
+                    @csrf
+                    <input type="hidden" name="name" value="Cẩm Lệ">
                 <div class="row imgRelative ml-1 mr-1" style="height: 300px;">
                     <div class="imgRS rounded" style="background-image: url({{asset('image/img5.png')}})">
                         <div class="textRelative">
-                            <h5>Sân bóng Sơn Trà</h5>
+{{--                            <h5>Sân bóng Sơn Trà</h5>--}}
+                            <button class="badge-lg btn-danger" type="submit">Sân bóng Sơn Trà</button>
                         </div>
                     </div>
-                </div>
+                </div></form>
             </div>
 
 
         </div>
+    </div>
+    <div class="clearfix clearpostition">
+        @include('layouts.footer')
     </div>
 
 
@@ -205,54 +224,7 @@
     {{--        </div>--}}
     {{--    </div>--}}
 
-    <div class="py-5  text-muted clearpostition">
-        <div class="container ">
-            <div class="row">
-                <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
-                    <h6 class="font-weight-bold text-uppercase text-dark mb-3">Về Sporta</h6>
-                    <ul class="list-unstyled">
-                        <li><a href="/pages/about-us" class="text-muted">Giới thiệu Sporta</a></li>
-                        <li><a href="/bai-viet/" class="text-muted">Blog</a></li>
-                        <li><a href="/pages/dieu-khoan-su-dung" class="text-muted">Điều khoản sử dụng</a></li>
-                        <li><a href="/pages/chinh-sach-bao-mat" class="text-muted">Chính sách bảo mật</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-3 mb-5 mb-lg-0">
-                    <div class="font-weight-bold text-uppercase text-dark mb-3">Thông tin liên hệ</div>
-                    <ul class="list-unstyled">
-                        <li class="text-muted"><a href="https://www.facebook.com/sportavn/" target="_blank"
-                                                  title="facebook" class="text-muted text-hover-primary"><i
-                                        class="fab fa-facebook"></i> /sportavn</a></li>
-                        <li class="text-muted"><a class="text-muted text-hover-primary" href="mailto:hello@sporta.vn"><i
-                                        class="fas fa-envelope"></i> hello@sporta.vn</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
-                    <h6 class="text-uppercase text-dark mb-3 font-weight-bold">Thanh toán</h6>
-                    <ul class="list-unstyled">
-                        <li class="text-muted"><a class="text-muted text-hover-primary"><img
-                                        style="height: 25px; margin-bottom: 10px"
-                                        src="https://www.sporta.vn/assets/momo-f2c88c55af645265139d91c8ec6e31182b68283d335ef35dff10bc90da8ddb3b.png"
-                                        alt="Momo"> Momo</a></li>
-                        <li class="text-muted"><a class="text-muted text-hover-primary"><i
-                                        class="fas fa-money-check-alt" style="font-size: 20px;"></i> Tiền mặt</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
-                    <h6 class="text-uppercase text-dark mb-3 font-weight-bold">Ứng dụng di động</h6>
-                    <ul class="list-unstyled">
-                        <li><a href="https://apps.apple.com/vn/app/sporta/id1469001632"><img style="width: 150px"
-                                                                                             src="https://www.sporta.vn/assets/icon-appstore-0ac658e90248e413db2bdc584e50b25b06a8229f6a74efb816b93194d0491829.svg"
-                                                                                             alt="Icon appstore"></a>
-                        </li>
-                        <li><a href="https://play.google.com/store/apps/details?id=vn.sporta.sportaandroid"><img
-                                        style="width: 150px"
-                                        src="https://www.sporta.vn/assets/icon-googleplaystore-87014b724e646f2c8dce71506e67424975dd3f81a59b3e8f356ce501a0c6e458.svg"
-                                        alt="Icon googleplaystore"></a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+
+
 @endsection
 

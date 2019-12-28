@@ -1,53 +1,52 @@
 @extends('layouts.app')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 @section('content')
-    <div class="container-fluid d-flex">
-        <div id="menu" class="col-2 mr-auto flex-fill p-0 ">
-            @include('Owner.component.OwnerSidebar')
-        </div>
-
-        <div id="content" class=" col-10 flex-fill bg-white m-0 p-0">
-            <div class="container">
-                <div class="row m-0 p-0 col-1 pb-3">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNewPitch">
-                        Add new
-                    </button>
-{{--                    <button class="btn btn-group bg-primary btn-block text-white text-center">Add new</button>--}}
-                </div>
-
-
-                <!-- Modal -->
-
+    <div class="container-fluid h-100 p-0 m-0">
+        <div class="col-12 p-0 m-0  row d-flex d-block position-absolute" style="height: 100%; min-height: 600px">
+            <div id="menu" class="col-2 p-o m-o bg-dark " >
+                {{--                style="height: 100%;"--}}
+                @include('Owner.component.OwnerSidebar')
             </div>
-            <div class=" container">
-                <div class="justify-content-center">
-                    @foreach ($pitch as $data)
-                        <div class="card card-body w-100 mb-3 shadow">
-                            <div class="row p-0 m-0" >
+            <div id="contentOwner" class="col-10 flex-fill bg-white m-0 p-0">
+                <div class=" container">
+                    <div class="row m-0 p-0 col-1 pb-3">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNewPitch">
+                            Add new
+                        </button>
+                        {{--                    <button class="btn btn-group bg-primary btn-block text-white text-center">Add new</button>--}}
+                    </div>
+                    <div class="justify-content-center mx-auto col-11 p-0">
+                        @foreach ($pitch as $data)
+                            <div class="card card-body w-100 mb-3 shadow-sm bg-secondary p-0">
+                                <div class="row p-0 m-0 bg-light" >
 
-                                <div class="col-4">
-                                    <img class="img-fluid h-100" src="{{asset($data->img)}}" alt="">
-                                </div>
-                                <div class="col-8 pt-3 pb-3 align-self-center">
-                                    <h3 class="text-uppercase text-info p-1">{{$data->name}}</h3>
-                                    <h5><i class="fa fa-map-marker p-1" aria-hidden="true">{{$data->address}}</i></h5>
-                                    <h5><i class="fa p-1">Area: {{$data->area}}</i></h5>
-                                    <a href="{{ \Illuminate\Support\Facades\URL::to('owner/pitch/'.$data->id) }}">Chi tiết</a>
+                                    <div class="col-4 p-0 m-0">
+                                        <img class="img-fluid h-100" src="{{asset($data->img)}}" alt="">
+                                    </div>
+                                    <div class="col-8 pt-3 pb-3 align-self-center">
+                                        <h3 class="text-uppercase text-info p-1">{{$data->name}}</h3>
+                                        <h5><i class="fa fa-map-marker p-1" aria-hidden="true">{{$data->address}}</i></h5>
+                                        <h5><i class="fa p-1">Area: {{$data->area}}</i></h5>
+                                        <a href="{{ \Illuminate\Support\Facades\URL::to('owner/pitch/'.$data->id) }}">Chi tiết</a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                    @endforeach
+                        @endforeach
+                    </div>
+                    {{--                <div class="pagination-list-user justify-content-center d-flex">--}}
+                    {{--                    <div class="m-auto align-content-center align-items-center">{{$getListPitch->links()}}</div>--}}
+                    {{--                </div>--}}
                 </div>
-{{--                <div class="pagination-list-user justify-content-center d-flex">--}}
-{{--                    <div class="m-auto align-content-center align-items-center">{{$getListPitch->links()}}</div>--}}
-{{--                </div>--}}
             </div>
+            <div class="col-12 p-0 m-0">
+                @include('layouts.footer')
+            </div>
+
         </div>
 
-
     </div>
-@component('Owner.component.addPitch')
+    @component('Owner.component.addPitch')
     @endcomponent
 
     <script type="text/javascript">

@@ -38,8 +38,9 @@ class UserController extends Controller
         return response($getListUser, 200);
     }
 
-    public function getInfo(Request $request){
-        $user = User::where('id', $request->dataGet)->get();
+    public function getInfoAUser(Request $request){
+        $data = $request->dataGet;
+        $user = User::where('id', $data)->get();
         return response([
             'user' => $user
         ]);
@@ -52,14 +53,33 @@ class UserController extends Controller
         }
         $user = User::find($request->user_id);
         $user->name = $request->name;
-        $user->email = $request->email;
         $user->phone = $request->phone;
         $user->save();
         Paginator::currentPageResolver(function () use ($currentPage) {
             return $currentPage;
         });
-        $getListUser = User::orderBy('id', 'asc')->paginate(10);
-        $view = view('Admin.index.user', compact('getListUser'));
-        return response('true', 200);
+        $getListUser = $this->getListUser();
+        $view = view('Admin.component.contentUser', compact('getListUser'));
+        return response()->json([
+            'message' => 'Xoa thanh cong',
+            'view' =>$view->render(),
+        ]);
+    }
+
+    public function delete(Request $request){
+        User::where('id',$request->dataGet)->delete();
+        $getListUser = $this->getListUser();
+        $view = view('Admin.component.contentUser', compact('getListUser'));
+        return response()->json([
+            'message' => 'Xoa thanh cong',
+            'view' =>$view->render(),
+
+        ]);
+    }
+
+    public function getListUser(){
+        $getListUser = User::where('role_id',2)->orWhere('role_id',3)
+            ->orderBy('role_id', 'asc')->paginate(10);
+        return $getListUser;
     }
 }
