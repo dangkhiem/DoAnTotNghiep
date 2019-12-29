@@ -3,8 +3,8 @@
 {{--<link rel="stylesheet" href="{{asset('css/subPitch.css')}}">--}}
 @section('content')
 
-    <div class="container-fluid d-flex">
-        <div id="menu" class="col-2 mr-auto flex-fill p-0 ">
+    <div class="container-fluid d-flex p-0 m-0">
+        <div id="menu" class="col-2 mr-auto flex-fill p-0 m-0 bg-dark">
             @include('Owner.component.OwnerSidebar')
         </div>
 
@@ -559,5 +559,9 @@
         }
 
     </script>
-
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#menuOwnerPitchDB li a').addClass("active");
+        });
+    </script>
 @endsection

@@ -3,7 +3,7 @@
 @section('content')
     <div class="container-fluid h-100 p-0 m-0">
         <div class="col-12 p-0 m-0  row d-flex d-block position-absolute" style="height: 100%; ">
-            <div id="menu" class="col-2 p-o m-o bg-dark " >
+            <div id="menu" class="col-2 p-0 m-0 bg-dark " >
                 {{--                style="height: 100%;"--}}
                 @include('Owner.component.OwnerSidebar')
             </div>
@@ -48,13 +48,18 @@
 
                 </div>
             </div>
-            <div class="clearpostition clearfix col-12 p-0 m-0">
-                @include('layouts.footer')
-            </div>
+{{--            <div class="clearpostition clearfix col-12 p-0 m-0">--}}
+{{--                @include('layouts.footer')--}}
+{{--            </div>--}}
 
         </div>
 
     </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#menuOwnerDB li a').addClass("active");
+        });
+    </script>
     <script type="text/javascript">
         $(document).ready(function () {
             $("#formAddUser").validate({

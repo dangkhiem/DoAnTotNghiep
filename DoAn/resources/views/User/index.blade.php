@@ -3,7 +3,7 @@
 @section('content')
     <div class="container-fluid h-100 p-0 m-0">
         <div class="col-12 p-0 m-0 row d-flex position-absolute" style="height: 100% !important;">
-            <div id="menu" class="col-2 m-0 p-0 bg-secondary" style="height: 100% !important;">
+            <div id="menu" class="col-2 m-0 p-0 bg-dark" style="height: 100% !important;">
                 @include('User.UserSidebar')
             </div>
             @foreach($data as $data)
@@ -56,6 +56,9 @@
     </div>
 
     <script type="text/javascript">
+        $(document).ready(function () {
+            $('#menuUserDB li a').addClass("active");
+        });
         function ChangeStatusButton() {
             $("#UserName").attr("disabled", false);
             $("#PhoneNumber").attr("disabled", false);

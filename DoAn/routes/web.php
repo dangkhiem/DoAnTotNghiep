@@ -15,11 +15,13 @@ Route::get('/', function () {
     return view('layouts.mainPage');
 });
 
+//Auth::routes(['verify' => true]);
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')
+    ->group(function () {
     Route::get('/','Admin\AdminController@index')->name('adminDashboard');
     Route::post('/','Admin\AdminController@update')->name('updateAdminInfo');
 
@@ -36,14 +38,17 @@ Route::prefix('admin')->group(function () {
     Route::post('pitch/store', 'Admin\PitchController@store')->name('storePitch');
 });
 
-Route::prefix('users')->group(function (){
+Route::prefix('users')
+    ->group(function (){
     Route::get('/', 'User\UserController@index')->name('userDashboard');
     Route::post('/', 'User\UserController@update')->name('updateInfo');
     Route::get('/order', 'User\UserController@UserOrder')->name('UserOrder');
     Route::get('/history', 'User\UserController@HistoryOrder')->name('HistoryOrder');
 });
 
-Route::prefix('owner')->group(function (){
+Route::prefix('owner')
+//    ->middleware('verified')
+    ->group(function (){
 //    Owner manage user information
     Route::get('/','OwnerController@index')->name('ownerDashboard');
 //    Owner manage Pitch Controller
@@ -68,5 +73,5 @@ Route::post('/search/searchfreetime', 'SearchController@SearchFreeTime')->name('
 Route::post('search/order','SearchController@Order')->name('Order');
 
 Route::get('/abc',function (){
-    return view('User.test');
+    return view('User.tesst');
 });

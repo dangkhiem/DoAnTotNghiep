@@ -19,6 +19,7 @@ class CreateSubpitchesTable extends Migration
             $table->integer('pitch_id');
             $table->integer('type');
             $table->string('name');
+            $table->timestamps();
         });
     }
 

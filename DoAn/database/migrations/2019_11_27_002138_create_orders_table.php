@@ -24,7 +24,7 @@ class CreateOrdersTable extends Migration
             $table->Time('start_time');
             $table->Time('end_time');
             $table->bigInteger('bill');
-
+            $table->timestamps();
         });
     }
 

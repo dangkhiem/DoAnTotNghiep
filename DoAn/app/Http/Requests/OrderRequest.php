@@ -28,4 +28,15 @@ class OrderRequest extends FormRequest
             'endTime' => ['required', 'regex:^(([0-1][0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?)$^', 'after:startTime'],
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'endTime.after' => 'Thời gian kết thúc phải lớn hơn thời gian bắt đầu ít nhất 30 phút.',
+            'startTime.regex' => 'Thời gian bắt đầu sai định dạng',
+            'endTime.regex' => 'Thời gian kết thúc sai định dạng',
+            'startTime.required' => 'Thời gian bắt đầu không được để trống',
+            'endTime.regex' => 'Thời gian kết thúc không được để trống',
+        ];
+    }
 }

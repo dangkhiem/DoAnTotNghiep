@@ -40,7 +40,7 @@ class OrderController extends Controller
         select * from orders  inner join pitches on orders.pitch_id = pitches.id where date_order < '$today' and orders.user_id = $id
         order by pitch_id, sub_pitch_id,type,start_time
         "));
-        return view('Owner/index/Order', compact('ListOrder'));
+        return view('Owner/index/History', compact('ListOrder'));
     }
 
 

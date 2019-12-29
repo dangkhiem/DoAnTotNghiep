@@ -7,7 +7,7 @@
 
     <div class="container-fluid h-100 p-0 m-0">
         <div class="col-12 p-0 m-0  row d-flex d-block position-absolute" style="height: 100%;">
-            <div id="menu" class="col-2 p-o m-o bg-dark " >
+            <div id="menu" class="col-2 p-0 m-0 bg-dark " >
                 @include('Admin.menu')
             </div>
             <div id="content" class=" col-10 flex-fill bg-white m-0 p-0">
@@ -43,5 +43,10 @@
         </div>
     </div>
 
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#menu_admin_pitch li a').addClass("active");
+        });
+    </script>
 @endsection
 

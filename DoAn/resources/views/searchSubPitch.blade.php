@@ -109,14 +109,14 @@
                                     @csrf
                                     <div class="row d-flex  p-0 m-0">
                                         <div class="col-6 p-0 m-0 input-group">
-                                            <select class="custom-select" id="inputDate" name="subpitch_id">
+                                            <select class="custom-select"  name="subpitch_id">
                                             @foreach ($SubPitch as $data)
                                                     <option value="{{$data->id}}">{{$data->name}} (Sân {{$data->type}} người)</option>
                                             @endforeach
                                             </select>
                                         </div>
                                         <div class="col-4  p-0 m-0 input-group">
-                                            <select class="custom-select" id="inputDate" name="date">
+                                            <select class="custom-select"  name="date">
                                                 @for ($i =0; $i<=6;  $i++)
                                                     <option value=" {{\Carbon\Carbon::now()->add($i,'day')->toDateString()}}"> {{\Carbon\Carbon::now()->add($i,'day')->toDateString()}}</option>
                                                 @endfor

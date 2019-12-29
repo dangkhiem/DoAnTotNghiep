@@ -22,6 +22,7 @@ class CreatePitchesTable extends Migration
             $table->string('area');
             $table->time('open_time');
             $table->time('close_time');
+            $table->timestamps();
         });
     }
 

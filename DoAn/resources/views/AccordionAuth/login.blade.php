@@ -2,8 +2,10 @@
 <div class="mx-auto">
     <div class="card-signin">
         <div class="card-body shadow-lg">
-            <form class="form-signin" method="POST" action="{{ route('login') }}">
+            <form class="form-signin" method="POST" id="formLogin"
+                    {{--                  action="{{ route('login') }}"--}}>
                 @csrf
+                <div for="" id="error-email-login" class="text-danger font-weight-bold"></div>
                 <div class="form-label-group">
                     <input type="email" id="inputEmail" class="form-control
 @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="Email address" required
@@ -27,6 +29,7 @@
                                     </span>
                     @enderror
                 </div>
+
                 <div class="custom-control custom-checkbox mb-3">
                     <input type="checkbox" class="custom-control-input" id="customCheck1"
                            name="remember"
@@ -41,9 +44,9 @@
                 {{--                                    {{ __('Forgot Your Password?') }}--}}
                 {{--                                </a>--}}
                 {{--                            @endif--}}
-{{--                <hr>--}}
-{{--                <div class="mx-auto text-center text-dark"><span>You don't have an account?</span></div>--}}
-{{--                <div class="mx-auto text-center text-dark"><a href="{{route('register')}}"><strong>Register now</strong></a></div>--}}
+                {{--                <hr>--}}
+                {{--                <div class="mx-auto text-center text-dark"><span>You don't have an account?</span></div>--}}
+                {{--                <div class="mx-auto text-center text-dark"><a href="{{route('register')}}"><strong>Register now</strong></a></div>--}}
                 {{--                            <div class="form-label-group">--}}
                 {{--                                <a class="btn btn-lg btn-danger btn-block text-uppercase" href="{{route('register')}}">Register</a>--}}
                 {{--                            </div>--}}
@@ -53,3 +56,32 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#formLogin').submit(function (e) {
+            e.preventDefault();
+            $('#error-email-login').html('');
+            var formLogin = $('#formLogin').serialize();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: "{{route("login")}}",
+                type: 'POST',
+                data: formLogin,
+                success: function (data) {
+                    $('#exampleModalAuthen').modal('hide');
+                    location.reload();
+                },
+                error: function (XMLHttpRequest) {
+                    errors = XMLHttpRequest.responseJSON.errors;
+                    console.log(errors);
+                    $('#error-email-login').html(errors.email);
+                }
+            })
+        });
+    });
+</script>

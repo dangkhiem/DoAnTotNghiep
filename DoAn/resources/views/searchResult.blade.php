@@ -1,5 +1,9 @@
 <div class="container">
     <h5>Danh sách các khoảng thời gian trống</h5>
+    <div>
+        <label for="" id="error-time" class="text-danger font-weight-bold"></label>
+        <label for="" id="error-time-start" class="text-danger font-weight-bold"></label>
+    </div>
     <div id="accordion">
         @foreach($Orders as $key=>$data)
             @if ($data->start == $data->end)
@@ -30,7 +34,7 @@
                                         <input type="hidden" name="type" value="{{{ $Data['type'] }}}">
                                         <input type="hidden" name="name" value="{{{ $Data['name'] }}}">
                                         <label for="">StartTime</label>
-                                        <select class="custom-select" id="inputGroupSelect01" name="startTime">
+                                        <select class="custom-select" id="inputGroupSelect{{$key+1}}" name="startTime">
                                             {{--                                    <option value="">Select Start time</option>--}}
                                             <?php $beginHour = \Illuminate\Support\Carbon::parse($data->start);
                                             $endHour = \Illuminate\Support\Carbon::parse($data->end);
@@ -44,7 +48,7 @@
                                     </div>
                                     <div class="">
                                         <label for="">End Time</label>
-                                        <select class="custom-select" id="inputGroupSelect02" name="endTime">
+                                        <select class="custom-select"  name="endTime">
                                             {{--                                    <option value="">Select End time</option>--}}
                                             <?php $beginHour = \Illuminate\Support\Carbon::parse($data->start);
                                             $endHour = \Illuminate\Support\Carbon::parse($data->end);
@@ -57,9 +61,9 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div>
-                                    <label for="" id="error-time" class="text-danger"></label>
-                                </div>
+{{--                                <div>--}}
+{{--                                    <label for="" id="error-time" class="text-danger"></label>--}}
+{{--                                </div>--}}
                                 <button class="btn btn-primary" type="button" onclick="OrderFunction('FormOrder{{$key+1}}')">Đăng Ký</button>
                             </form>
                         </div>
@@ -102,6 +106,7 @@
                     errors = XMLHttpRequest.responseJSON.errors
                     if (XMLHttpRequest.responseJSON.errors){
                         $('#error-time').html(errors.endTime);
+                        $('#error-time-start').html(errors.startTime);
                     }
                     else {
                         Swal.fire({

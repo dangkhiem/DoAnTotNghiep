@@ -9,5 +9,5 @@ class Subpitch extends Model
     protected $fillable = [
         'pitch_id','type','name'
     ];
-    public $timestamps = false;
+    public $timestamps = true;
 }
